@@ -2,37 +2,37 @@ package com.andoidapplicationisep.teammobility.android_mobility_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by apple on 20/10/15.
+ */
+public class Index extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.accueil);
 
         //connexion temporaire
 
-        /*Button connect = (Button) findViewById(R.id.connect);
+        Button connect = (Button) findViewById(R.id.connect);
 
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //si l'utilisateur clique sur le bouton, on va sur la page de connexion
-                //Intent intent = new Intent(MainActivity.this,);
+                Intent intent = new Intent(Index.this,MainActivity.class);
                 //l'intent sert à passer des données entre les classes
-               // startActivity(intent);
+                startActivity(intent);
                 //on ferme l'activité
                 finish();
             }
-        })*/
+        });
 
         // connexion facebook et google +
         //enregistrement de la connexion pour une reconnexion auto

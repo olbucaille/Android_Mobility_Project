@@ -3,4 +3,46 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+        <com.andoidapplicationisep.teammobility.android_mobility_project.new_view.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/user"
+            app:border_width="2dp"
+            app:border_color="#ffffff"/>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:textAppearance ="@style/text_title_style"
+            android:text="username"/>
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/viewpager">
+    </android.support.v4.view.ViewPager>
+
+    <Button
+        android:id="@+id/disconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="se déconnecter"
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>

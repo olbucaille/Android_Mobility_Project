@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,8 +38,35 @@ public class MainActivity extends AppCompatActivity {
         // connexion facebook et google +
         //enregistrement de la connexion pour une reconnexion auto
 
+        ImageButton profile = (ImageButton) findViewById(R.id.profile);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //si l'utilisateur clique sur le bouton, on va sur la page de connexion
+                Intent intent = new Intent(MainActivity.this,Profile.class);
+                //l'intent sert à passer des données entre les classes
+                startActivity(intent);
+                //on ferme l'activité
+                finish();
+            }
+        });
+        ImageButton statistic = (ImageButton) findViewById(R.id.statistics);
+
+        statistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //si l'utilisateur clique sur le bouton, on va sur la page de connexion
+                Intent intent = new Intent(MainActivity.this,Statistic.class);
+                //l'intent sert à passer des données entre les classes
+                startActivity(intent);
+                //on ferme l'activité
+                finish();
+            }
+        });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -2,4 +2,12 @@
     <string name="app_name">Android_Mobility_Project</string>
     <string name="action_settings">Settings</string>
     <string name="title">FUN WORKOUT</string>
+    <string name="description_batman">Il saura vous pousser dans le coté obscure pour faire surgir votre part d\'ombre</string>
+    <string name="description_Joker">Ne faites pas de résistance, n\'oubliez pas qu\'il est le Joker. Un petit tour de magie peut-être ?</string>
+    <string name="description_captain_america">Vous faites le fier avec vos beaux vètements, mais sans, vous êtes quoi ? ... Ne vous inquitez pas il a une potion magique</string>
+    <string name="description_iron_man">En réalité... seul lui pourra vous aider, après tout, il est Iron Man !</string>
+    <string name="description_magneto">Il soulevera peut etre les poids pour vous.</string>
+    <string name="description_spider_woman">Spider Woman","Encore plus agile que l\'homme araigné, et beaucoup plus sexy.</string>
+    <string name="description_thor">Rien de tel qu\'un éclair en plein visage pour vous rebouster.</string>
+
 </resources>

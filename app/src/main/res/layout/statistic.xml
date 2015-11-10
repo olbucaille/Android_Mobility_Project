@@ -10,6 +10,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_height="0dp"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statistiques"
+            android:textAppearance ="@style/text_app_style"/>
+
     </RelativeLayout>
 
     <RelativeLayout

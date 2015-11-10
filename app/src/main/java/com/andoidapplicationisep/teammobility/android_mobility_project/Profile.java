@@ -1,43 +1,85 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.view.KeyEvent;
 
-import java.util.List;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Created by apple on 03/11/2015.
  */
 public class Profile extends AppCompatActivity {
+    ViewPager viewPager;
+    CoachContentView mAdapter;
+    ArrayList<Coach> coachList = new ArrayList<Coach>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-
-
-        // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List fragments = new Vector();
-
-        // Ajout des Fragments dans la liste
-        /*fragments.add(Fragment.instantiate(this, PageGaucheFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this,PageMilieuFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this,PageDroiteFragment.class.getName()));
-
-        // Création de l'adapter qui s'occupera de l'affichage de la liste de
-        // Fragments
-        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-
-        ViewPager pager = (ViewPager) super.findViewById(R.id.viewpager);
-        // Affectation de l'adapter au ViewPager
-        pager.setAdapter(this.mPagerAdapter);
-*/
+        coachList.clear();
+        Resources res = getResources();
+        coachList.add(new Coach(R.drawable.comics_batman_icon, "Le Batman", res.getString(R.string.description_batman)));
+        coachList.add(new Coach(R.drawable.comics_batman_joker_icon, "Le Joker", res.getString(R.string.description_Joker)));
+        coachList.add(new Coach(R.drawable.comics_captain_america_icon, "Captain America", res.getString(R.string.description_captain_america)));
+        coachList.add(new Coach(R.drawable.comics_ironman_red_icon, "Iron Man", res.getString(R.string.description_iron_man)));
+        coachList.add(new Coach(R.drawable.comics_magneto_icon, "Magneto", res.getString(R.string.description_magneto)));
+        coachList.add(new Coach(R.drawable.comics_spiderwoman_icon, "Spider Woman", res.getString(R.string.description_spider_woman)));
+        coachList.add(new Coach(R.drawable.comics_thor_icon, "Thor", res.getString(R.string.description_thor)));
+                fragmentIHM();
     }
 
+    public void fragmentIHM(){
+        // Initialization
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        //cr�ation des vues avec la class ContentView
+        mAdapter = new CoachContentView(getSupportFragmentManager(), coachList);
+        viewPager.setAdapter(mAdapter);
+
+        //action sur le changement de page
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+    }
+
+    /**************************************************************************************
+     * 								event sur la touche retour
+     ***************************************************************************************/
+    // On arrete la demande d'envoie de message lorsqu'on clique sur retour
+    public boolean onKeyDown(int keyCode,KeyEvent event){
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            //demande d'envoie des messages
+
+            Intent intent = new Intent(Profile.this,MainActivity.class);
+            //l'intent sert à passer des données entre les classes
+            startActivity(intent);
+            //on ferme l'activité
+            finish();
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }
+
+
 

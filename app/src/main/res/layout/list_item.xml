@@ -64,7 +64,7 @@
     <!-- Rightend Arrow -->
     <ImageView android:layout_width="15dp"
         android:layout_height="15dp"
-        android:src="@drawable/arrow"
+        android:src="@drawable/arrow_white_right"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
 

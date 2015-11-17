@@ -57,25 +57,50 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
-        <ImageButton
-            android:id="@+id/statistics"
-            android:src="@drawable/stats"
-            android:background="@null"
+        <LinearLayout
+            android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:scaleType="centerInside"
-            android:layout_height="match_parent"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/profile"
-            android:src="@drawable/profile"
-            android:background="@null"
-            android:layout_weight="0.5"
+            <ImageButton
+                android:id="@+id/statistics"
+                android:src="@drawable/stats"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:scaleType="centerInside"
+                android:layout_height="50dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/text_app_style"
+                android:gravity="center"
+                android:text="Statistiques"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:scaleType="centerInside"
-            android:layout_height="match_parent"/>
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center">
 
+            <ImageButton
+                android:id="@+id/profile"
+                android:src="@drawable/profile"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:scaleType="centerInside"
+                android:layout_height="50dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/text_app_style"
+                android:gravity="center"
+                android:text="Profile"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

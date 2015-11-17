@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,19 @@ public class Profile extends AppCompatActivity {
         coachList.add(new Coach(R.drawable.comics_spiderwoman_icon, "Spider Woman", res.getString(R.string.description_spider_woman)));
         coachList.add(new Coach(R.drawable.comics_thor_icon, "Thor", res.getString(R.string.description_thor)));
                 fragmentIHM();
+
+        Button disconnect = (Button) findViewById(R.id.disconnect);
+
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this,Index.class);
+                //l'intent sert à passer des données entre les classes
+                startActivity(intent);
+                //on ferme l'activité
+                finish();
+            }
+        });
     }
 
     public void fragmentIHM(){

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android_Mobility_Project</string>
+    <string name="app_name">Fun Workout</string>
     <string name="action_settings">Settings</string>
     <string name="title">FUN WORKOUT</string>
     <string name="description_batman">Il saura vous pousser dans le coté obscure pour faire surgir votre part d\'ombre</string>
@@ -9,5 +9,5 @@
     <string name="description_magneto">Il soulevera peut etre les poids pour vous.</string>
     <string name="description_spider_woman">Spider Woman","Encore plus agile que l\'homme araigné, et beaucoup plus sexy.</string>
     <string name="description_thor">Rien de tel qu\'un éclair en plein visage pour vous rebooster.</string>
-
+<string name="facebook_app_id">960840583987593</string>
 </resources>

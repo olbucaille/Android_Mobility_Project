@@ -32,7 +32,8 @@ public class Profile extends AppCompatActivity {
         coachList.add(new Coach(R.drawable.comics_magneto_icon, "Magneto", res.getString(R.string.description_magneto)));
         coachList.add(new Coach(R.drawable.comics_spiderwoman_icon, "Spider Woman", res.getString(R.string.description_spider_woman)));
         coachList.add(new Coach(R.drawable.comics_thor_icon, "Thor", res.getString(R.string.description_thor)));
-                fragmentIHM();
+
+        fragmentIHM();
 
         Button disconnect = (Button) findViewById(R.id.disconnect);
 

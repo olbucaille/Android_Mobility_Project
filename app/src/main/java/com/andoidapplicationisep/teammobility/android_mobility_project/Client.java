@@ -49,13 +49,7 @@ public class Client {
 
             Log.d("client",""+ ex);     // message de terminaison
             //pred.println("END") ;
-            try{
-                plec.close();
-                pred.close();
-                socket.close();
-            }catch (IOException e){
-                Log.d("client",""+ e);
-            }
+
         }
     }
 

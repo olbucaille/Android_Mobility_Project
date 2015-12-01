@@ -68,7 +68,7 @@ public class Index extends AppCompatActivity {
         //connexion temporaire
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("public_profile, user_birthday"));
+        loginButton.setReadPermissions(Arrays.asList("public_profile, user_birthday,user_photos"));
 
 
         // Callback registration

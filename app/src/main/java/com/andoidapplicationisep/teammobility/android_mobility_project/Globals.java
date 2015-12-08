@@ -17,4 +17,8 @@ public class Globals {
     //selection coach ;
 
     static int currentCoach ;
+
+    public static int gpsStatus;
+    public static float latitude;
+    public static float longitude;
 }

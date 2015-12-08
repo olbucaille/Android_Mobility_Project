@@ -56,7 +56,7 @@ private LayoutInflater mInflater;
 
             view = mInflater.inflate(R.layout.list_item, null);
             TextView title = (TextView)view.findViewById(R.id.title); // title
-            TextView artist = (TextView)view.findViewById(R.id.artist); // artist name
+            //TextView artist = (TextView)view.findViewById(R.id.artist); // artist name
             TextView duration = (TextView)view.findViewById(R.id.duration); // duration
             ImageView thumb_image=(ImageView)view.findViewById(R.id.list_image);
 

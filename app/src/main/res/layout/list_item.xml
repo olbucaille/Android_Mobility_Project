@@ -29,23 +29,21 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Rihanna Love the way lie"
-        android:textColor="#040404"
-        android:typeface="sans"
-        android:textSize="15dip"
+        android:textAppearance ="@style/text_title_style"
+        android:text="Activité Running"
         android:textStyle="bold"/>
 
     <!-- Artist Name -->
     <TextView
-        android:id="@+id/artist"
+        android:id="@+id/coachname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:textColor="#343434"
+        android:textAppearance ="@style/text_title_style"
         android:textSize="10dip"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Just gona stand there and ..." />
+        android:text="coach : Batman" />
 
     <!-- Rightend Duration -->
     <TextView
@@ -55,10 +53,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/title"
         android:gravity="right"
-        android:text="5:45"
+        android:text="Durée : 5:45"
         android:layout_marginRight="5dip"
         android:textSize="10dip"
-        android:textColor="#10bcc9"
+        android:textAppearance ="@style/text_title_style"
         android:textStyle="bold"/>
 
     <!-- Rightend Arrow -->

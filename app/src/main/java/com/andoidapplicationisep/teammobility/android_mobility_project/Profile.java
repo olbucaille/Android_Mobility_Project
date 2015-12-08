@@ -49,15 +49,15 @@ public class Profile extends AppCompatActivity {
         profilePictureView.setProfileId(AccessToken.getCurrentAccessToken().getUserId());
         */
 
-        String userid = AccessToken.getCurrentAccessToken().getUserId();
+        //String userid = AccessToken.getCurrentAccessToken().getUserId();
 
-        CircleImageView circle = (CircleImageView) findViewById(R.id.image);
+        //CircleImageView circle = (CircleImageView) findViewById(R.id.image);
 
         TextView username = (TextView)findViewById(R.id.username);
 
         username.setText("");
 
-        new DownloadImageTask(circle).execute("https://graph.facebook.com/"+userid+"/picture?type=large");
+        //new DownloadImageTask(circle).execute("https://graph.facebook.com/"+userid+"/picture?type=large");
 
         coachList.clear();
         Resources res = getResources();

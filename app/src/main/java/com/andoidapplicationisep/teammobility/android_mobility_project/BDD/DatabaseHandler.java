@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by apple on 24/11/2015.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
+
+    public static final String USER_KEY ="id";
+    public static final String USER_NAME ="username";
+    public static final String USER_TABLE_NAME ="user";
+
     public static final String METIER_KEY = "id";
     public static final String METIER_INTITULE = "intitule";
     public static final String METIER_SALAIRE = "salaire";
@@ -16,6 +21,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String METIER_TABLE_CREATE =
             "CREATE TABLE " + METIER_TABLE_NAME + " (" +
                     METIER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    METIER_INTITULE + " TEXT, " +
+                    METIER_SALAIRE + " REAL);";
+
+
+    public static final String USER_TABLE_CREATE =
+            "CREATE TABLE " + USER_TABLE_NAME + " (" +
+                    USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     METIER_INTITULE + " TEXT, " +
                     METIER_SALAIRE + " REAL);";
 

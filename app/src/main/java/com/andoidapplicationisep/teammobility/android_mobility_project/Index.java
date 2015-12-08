@@ -1,6 +1,11 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -30,6 +36,8 @@ import java.util.Arrays;
 public class Index extends AppCompatActivity {
     CallbackManager callbackManager;
     boolean loggedIn;
+
+    LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +119,7 @@ public class Index extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //si l'utilisateur clique sur le bouton, on va sur la page de connexion
-                Intent intent = new Intent(Index.this,MainActivity.class);
+                Intent intent = new Intent(Index.this, MainActivity.class);
                 //l'intent sert à passer des données entre les classes
                 startActivity(intent);
                 //on ferme l'activité
@@ -121,6 +129,67 @@ public class Index extends AppCompatActivity {
 
         // connexion facebook et google +
         //enregistrement de la connexion pour une reconnexion auto
+
+
+    }
+
+
+    /**************************************************************************************
+     * 									GPS LOCATION
+     ***************************************************************************************/
+
+    public void initGpsLocation(){
+        // Get the location manager
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Globals.gpsStatus=LocationProvider.OUT_OF_SERVICE;
+        LocationListener gpsListener = new LocationListener(){
+
+            @Override
+            public void onLocationChanged(Location loc) {
+                // TODO Auto-generated method stub
+                float lat = (float) (loc.getLatitude());
+                float lng = (float) (loc.getLongitude());
+                Globals.latitude=lat;
+                Globals.longitude=lng;
+
+            }
+
+            @Override
+            public void onProviderDisabled(String arg0) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getBaseContext(), "GPS desactive " ,
+                        Toast.LENGTH_SHORT).show();
+                Globals.latitude=0;
+                Globals.longitude=0;
+
+            }
+
+            @Override
+            public void onProviderEnabled(String arg0) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getBaseContext(), "GPS activ� " ,
+                        Toast.LENGTH_SHORT).show();
+                int oldGpsStatus =Globals.gpsStatus;
+                Globals.gpsStatus= LocationProvider.OUT_OF_SERVICE;
+            }
+
+            @Override
+            public void onStatusChanged(String arg0, int status, Bundle arg2) {
+                // TODO Auto-generated method stub
+
+            }
+        };
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, gpsListener);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        // Initialize the location fields
+        if (location != null) {
+            gpsListener.onLocationChanged(location);
+        } else {
+            Globals.latitude=0;
+            Globals.longitude=0;
+        }
 
 
     }

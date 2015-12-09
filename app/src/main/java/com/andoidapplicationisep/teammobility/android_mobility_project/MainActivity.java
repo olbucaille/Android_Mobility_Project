@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.workout.Workout;
+
 public class MainActivity extends AppCompatActivity {
 
     SensorManager mSensorManager;
@@ -38,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         // connexion facebook et google +
         //enregistrement de la connexion pour une reconnexion auto
+        ImageButton workout = (ImageButton) findViewById(R.id.workout);
+
+        workout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //si l'utilisateur clique sur le bouton, on va sur la page de connexion
+                Intent intent = new Intent(MainActivity.this, Workout.class);
+                //l'intent sert à passer des données entre les classes
+                startActivity(intent);
+                //on ferme l'activité
+                finish();
+            }
+        });
 
         ImageButton profile = (ImageButton) findViewById(R.id.profile);
 

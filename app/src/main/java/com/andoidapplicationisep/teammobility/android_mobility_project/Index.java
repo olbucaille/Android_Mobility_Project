@@ -42,7 +42,7 @@ public class Index extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null){
+  /*      if (savedInstanceState == null){
             Globals.clientStatus = Globals.DISCONNECTED;
 
             Thread threadClient = new Thread(new Runnable() {
@@ -52,7 +52,7 @@ public class Index extends AppCompatActivity {
                 }
             });
             threadClient.start();
-        }
+        }*/
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:textAppearance ="@style/text_title_style"
+        android:text="latitude"/>
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:textAppearance ="@style/text_title_style"
+        android:text="longitude"/>
+    <TextView
+        android:id="@+id/textView1"
+        android:textColor="#555699"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Static Chronometer" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Start"
+        android:background="@drawable/just_do_it"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Stop"
+        android:layout_gravity="center"/>
+
+    <Chronometer
+        android:id="@+id/chronometer1"
+        android:textColor="#4169E1"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Chronometer"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:textAppearance ="@style/text_title_style" />
+
+
+</LinearLayout>

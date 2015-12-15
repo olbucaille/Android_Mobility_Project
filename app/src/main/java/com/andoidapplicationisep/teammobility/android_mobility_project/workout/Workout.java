@@ -1,20 +1,19 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project.workout;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
@@ -26,6 +25,7 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
  */
     public class Workout extends AppCompatActivity {
 
+    boolean run = true;
     TextView latitude, longitude, time;
     String lat = "0";
     String lon = "0";
@@ -40,21 +40,14 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
             longitude = (TextView)findViewById(R.id.longitude);
             time = (TextView)findViewById(R.id.time);
 
-            Log.d("", "" + Globals.latitude);
-            Log.d("", "" + Globals.longitude);
-            lat = Float.toString(Globals.latitude);
-            lon=Float.toString(Globals.longitude);
-            latitude.setText(lat);
-            longitude.setText(lon);
             start = (Button)findViewById(R.id.button1);
             stop = (Button)findViewById(R.id.button2);
 
             focus = (Chronometer)findViewById(R.id.chronometer1);
             focus.start();
 
-           final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Fin de l'entrainement");
-
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Workout.this, MainActivity.class);
@@ -82,10 +75,11 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
                     time.setText("Durée de l'entrainement : " + focus.getText());
                     alertDialog.setMessage("Durée de l'entrainement : " + focus.getText());
                     alertDialog.show();
+                    run = false;
                 }
             });
 
-
+        new UpdateTask().execute();
 
         }/*
     @Override
@@ -104,5 +98,30 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private class UpdateTask extends AsyncTask {
+
+        @Override
+        protected Void doInBackground(Object... params) {
+            while(run) {
+                lat = Float.toString(Globals.latitude);
+                lon = Float.toString(Globals.longitude);
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        latitude.setText(lat);
+                        longitude.setText(lon);
+                    }
+                });
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        return null;
+        }
     }
 }

@@ -101,8 +101,23 @@ import java.text.DecimalFormat;
             });
         //ICI THIB ********//////
 
-        //new UpdateTask().execute();
-        new UpdateHR().execute();
+         /*   Use AsyncTask for:
+
+            Simple network operations which do not require downloading a lot of data
+            Disk-bound tasks that might take more than a few milliseconds
+
+
+            Use Java threads for:
+
+            Network operations which involve moderate to large amounts of data (either uploading or downloading)
+            High-CPU tasks which need to be run in the background
+            Any task where you want to control the CPU usage relative to the GUI thread
+
+
+            Je crois qu'il est préférable d'utiliser un thred ICI, on utilisera l'asynctask just pour la communication TCP
+          */
+            threadUpdateHR.start();
+            threadUpdateTask.start();
 
         }/*
     @Override
@@ -110,24 +125,37 @@ import java.text.DecimalFormat;
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }*/
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //demande d'envoie des messages
 
-            Intent intent = new Intent(Workout.this, MainActivity.class);
-            //l'intent sert à passer des données entre les classes
-            startActivity(intent);
-            //on ferme l'activité
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
-    private class UpdateTask extends AsyncTask {
-
+    public Thread threadUpdateHR = new Thread(new Runnable() {
         @Override
-        protected Void doInBackground(Object... params) {
+        public void run() {
             while (run) {
+                Log.d("distance","toto2");
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bpm.setText(""+beat*6);
+                        beat = 0;
+                        mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
+                        mPlayer.start();
+                    }
+                });
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mPlayer.release();
+            }
+        }
+    });
+
+    public Thread threadUpdateTask = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while (run) {
+                Log.d("distance","toto");
                 lat_old = lat;
                 lon_old = lon;
                 lat = (float) (Globals.getlatitude());
@@ -149,33 +177,23 @@ import java.text.DecimalFormat;
                     e.printStackTrace();
                 }
             }
-            return null;
         }
-    }
-    private class UpdateHR extends AsyncTask {
+    });
 
-        @Override
-        protected Void doInBackground(Object... params) {
-            while (run) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        bpm.setText(""+beat*6);
-                        beat = 0;
-                        mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
-                        mPlayer.start();
-                    }
-                });
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mPlayer.release();
-            }
-            return null;
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //demande d'envoie des messages
+
+            Intent intent = new Intent(Workout.this, MainActivity.class);
+            //l'intent sert à passer des données entre les classes
+            startActivity(intent);
+            //on ferme l'activité
+            finish();
         }
+        return super.onKeyDown(keyCode, event);
     }
+
+
     public double CalculationByDistance(float lat1, float lon1,
                                         float lat2, float lon2){
         int R = 6371; // km

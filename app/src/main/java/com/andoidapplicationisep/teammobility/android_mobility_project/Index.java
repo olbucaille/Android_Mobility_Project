@@ -149,8 +149,8 @@ public class Index extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 float lat = (float) (loc.getLatitude());
                 float lng = (float) (loc.getLongitude());
-                Globals.latitude=lat;
-                Globals.longitude=lng;
+                Globals.setlatitude(lat);
+                Globals.setlongitude(lng);
 
             }
 
@@ -159,8 +159,8 @@ public class Index extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 Toast.makeText(getBaseContext(), "GPS desactive " ,
                         Toast.LENGTH_SHORT).show();
-                Globals.latitude=0;
-                Globals.longitude=0;
+                Globals.setlatitude(0);
+                Globals.setlongitude(0);
 
             }
 
@@ -187,8 +187,8 @@ public class Index extends AppCompatActivity {
         if (location != null) {
             gpsListener.onLocationChanged(location);
         } else {
-            Globals.latitude=0;
-            Globals.longitude=0;
+            Globals.setlatitude(0);
+            Globals.setlongitude(0);
         }
 
 

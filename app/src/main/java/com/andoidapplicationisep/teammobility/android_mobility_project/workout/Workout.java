@@ -3,6 +3,8 @@ package com.andoidapplicationisep.teammobility.android_mobility_project.workout;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -20,27 +23,42 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
 import com.andoidapplicationisep.teammobility.android_mobility_project.MainActivity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.R;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Guigui on 08/12/2015.
  */
     public class Workout extends AppCompatActivity {
 
     boolean run = true;
-    TextView latitude, longitude, time;
-    String lat = "0";
-    String lon = "0";
+    TextView latitude, longitude, time, distance;
+    float lat = 0;
+    float lon = 0;
+    float lat_old = 0;
+    float lon_old = 0;
+    double dist = 0;
+    int beat = 0;
+
     Chronometer focus;
-    Button start, stop;
+    Button bpm, stop;
+
+    MediaPlayer mPlayer = null;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.workout);
 
+
+
+            lat = Globals.getlatitude();
+            lon = Globals.getlongitude();
+
             latitude = (TextView)findViewById(R.id.latitude);
             longitude = (TextView)findViewById(R.id.longitude);
             time = (TextView)findViewById(R.id.time);
+            distance = (TextView)findViewById(R.id.distance);
 
-            start = (Button)findViewById(R.id.button1);
+            bpm = (Button)findViewById(R.id.button1);
             stop = (Button)findViewById(R.id.button2);
 
             focus = (Chronometer)findViewById(R.id.chronometer1);
@@ -59,11 +77,13 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
             });
 
 
-            start.setOnClickListener(new View.OnClickListener() {
+            bpm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    focus.start();
+                    beat++;
+                    buttonEffect(bpm);
+                    //bpm.setText("OK" + beat);
                 }
             });
 
@@ -72,14 +92,17 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     focus.stop();
-                    time.setText("Durée de l'entrainement : " + focus.getText());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText());
+                    //time.setText("Durée de l'entrainement : " + focus.getText());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + distance.getText());
                     alertDialog.show();
+                    mPlayer.release();
                     run = false;
                 }
             });
+        //ICI THIB ********//////
 
-        new UpdateTask().execute();
+        //new UpdateTask().execute();
+        new UpdateHR().execute();
 
         }/*
     @Override
@@ -104,14 +127,20 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
 
         @Override
         protected Void doInBackground(Object... params) {
-            while(run) {
-                lat = Float.toString(Globals.latitude);
-                lon = Float.toString(Globals.longitude);
+            while (run) {
+                lat_old = lat;
+                lon_old = lon;
+                lat = (float) (Globals.getlatitude());
+                lon = Globals.getlongitude();
+                dist = dist + CalculationByDistance(lat_old, lon_old, lat, lon);
+                final DecimalFormat df = new DecimalFormat("0.0");
+
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        latitude.setText(lat);
-                        longitude.setText(lon);
+                        latitude.setText(Float.toString(lat));
+                        longitude.setText(Float.toString(lon));
+                        distance.setText("Distance parcourue : " + df.format(dist) + "km");
                     }
                 });
                 try {
@@ -119,9 +148,68 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.R;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
-        return null;
+            return null;
         }
+    }
+    private class UpdateHR extends AsyncTask {
+
+        @Override
+        protected Void doInBackground(Object... params) {
+            while (run) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bpm.setText(""+beat*6);
+                        beat = 0;
+                        mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
+                        mPlayer.start();
+                    }
+                });
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mPlayer.release();
+            }
+            return null;
+        }
+    }
+    public double CalculationByDistance(float lat1, float lon1,
+                                        float lat2, float lon2){
+        int R = 6371; // km
+        double dLat = toRadians((lat2-lat1));
+        double dLon = toRadians((lon2-lon1));
+
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+
+    public double toRadians(double deg) {
+        return deg * (Math.PI/180);
+    }
+
+    public static void buttonEffect(Button button){
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xffff0000, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 }

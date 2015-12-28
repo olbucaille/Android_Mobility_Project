@@ -19,6 +19,19 @@ public class Globals {
     static int currentCoach ;
 
     public static int gpsStatus;
-    public static float latitude;
-    public static float longitude;
+    private static float latitude;
+    private static float longitude;
+
+    public static synchronized float getlatitude(){
+        return latitude;
+    }
+    public static synchronized float getlongitude(){
+        return longitude;
+    }
+    public static synchronized void setlatitude(float lat){
+        latitude=lat;
+    }
+    public static synchronized  void setlongitude(float lon){
+        longitude=lon;
+    }
 }

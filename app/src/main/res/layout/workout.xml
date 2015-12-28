@@ -32,13 +32,14 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="240dp"
+        android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Start"
-        android:background="@drawable/just_do_it"
+        android:textColor="#FFFFFF"
+        android:text="BPM"
+        android:background="@drawable/heartrate"
         android:layout_gravity="center"/>
 
     <Button
@@ -54,7 +55,7 @@
     <Chronometer
         android:id="@+id/chronometer1"
         android:textColor="#4169E1"
-        android:textSize="20dp"
+        android:textSize="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button5"
@@ -71,5 +72,13 @@
         android:layout_gravity="center"
         android:textAppearance ="@style/text_title_style" />
 
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:textAppearance ="@style/text_title_style"
+        android:text="distance"/>
 
 </LinearLayout>

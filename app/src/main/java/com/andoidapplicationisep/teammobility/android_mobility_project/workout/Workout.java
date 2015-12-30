@@ -24,6 +24,7 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.MainActiv
 import com.andoidapplicationisep.teammobility.android_mobility_project.R;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * Created by Guigui on 08/12/2015.
@@ -38,7 +39,6 @@ import java.text.DecimalFormat;
     float lon_old = 0;
     double dist = 0;
     int beat = 0;
-
     Chronometer focus;
     Button bpm, stop;
 
@@ -93,8 +93,9 @@ import java.text.DecimalFormat;
                     // TODO Auto-generated method stub
                     focus.stop();
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + distance.getText());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : "+distance.getText());
                     alertDialog.show();
+                    mPlayer.stop();
                     mPlayer.release();
                     run = false;
                 }
@@ -168,7 +169,8 @@ import java.text.DecimalFormat;
                     public void run() {
                         latitude.setText(Float.toString(lat));
                         longitude.setText(Float.toString(lon));
-                        distance.setText("Distance parcourue : " + df.format(dist) + "km");
+                        distance.setText(""+ df.format(dist) + "km");
+
                     }
                 });
                 try {
@@ -216,7 +218,7 @@ import java.text.DecimalFormat;
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        v.getBackground().setColorFilter(0xffff0000, PorterDuff.Mode.SRC_ATOP);
+                        v.getBackground().setColorFilter(0xffd40659, PorterDuff.Mode.SRC_ATOP);
                         v.invalidate();
                         break;
                     }

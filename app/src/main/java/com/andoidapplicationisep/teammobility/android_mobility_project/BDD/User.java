@@ -7,6 +7,8 @@ public class User {
     private long id;//key
     private String fbId;
     private String name;
+    private int selectedCoachId;
+
 
     public long getId() {
         return id;
@@ -30,5 +32,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSelectedCoachId() {
+        return selectedCoachId;
+    }
+
+    public void setSelectedCoachId(int selectedCoachId) {
+        this.selectedCoachId = selectedCoachId;
     }
 }

@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by apple on 24/11/2015.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
-
     public static final String USER_KEY ="id";
     public static final String USER_FB_ID ="fb_id";
     public static final String USER_NAME ="username";
+    public static final String USER_COACH_ID ="selectedCoachId";
     public static final String USER_TABLE_NAME ="user";
 
     public static final String USER_TABLE_CREATE =
@@ -19,8 +19,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USER_FB_ID + "TEXT," +
                     USER_NAME + " TEXT, " +
-                    USER_TABLE_NAME + " TEXT);";
-
+                    USER_TABLE_NAME + " TEXT" +
+                    USER_COACH_ID+ " TEXT);";
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
 

@@ -18,8 +18,11 @@ public class Activity {
 
 
 
-    public Activity(){
-
+    public Activity(String userFbID,int type ,String begin, String end){
+        this.userFbID = userFbID;
+        this.type = type;
+        this.begin = begin;
+        this.end = end;
     }
 
 

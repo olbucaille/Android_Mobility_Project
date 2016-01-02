@@ -7,6 +7,11 @@ public class Running {
     private long activityID;
     private String distance;
 
+    public Running (long activityID,String distance){
+        this.activityID= activityID;
+        this.distance=distance;
+    }
+
     public String getDistance() {
         return distance;
     }

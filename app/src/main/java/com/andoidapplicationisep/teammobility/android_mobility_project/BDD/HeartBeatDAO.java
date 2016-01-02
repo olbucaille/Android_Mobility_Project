@@ -48,9 +48,9 @@ public class HeartBeatDAO extends DAOBase{
     /**
      * @param id l'identifiant du HeartBeat à récupérer
      */
-    public HeartBeat selectionner(long id) {
+    /*public HeartBeat selectionner(long id) {
         // CODE
         return new HeartBeat();
-    }
+    }*/
 
 }

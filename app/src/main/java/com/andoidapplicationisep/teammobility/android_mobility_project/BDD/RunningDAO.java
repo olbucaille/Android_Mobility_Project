@@ -49,9 +49,9 @@ public class RunningDAO extends DAOBase {
     /**
      * @param id l'identifiant du Running à récupérer
      */
-    public Running selectionner(long id) {
+    /*public Running selectionner(long id) {
         // CODE
         return new Running();
-    }
+    }*/
 
 }

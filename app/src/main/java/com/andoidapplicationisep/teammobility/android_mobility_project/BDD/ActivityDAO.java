@@ -67,10 +67,10 @@ public class ActivityDAO extends DAOBase{
     /**
      * @param id l'identifiant du Activity à récupérer
      */
-    public Activity selectionner(long id) {
+    /*public Activity selectionner(long id) {
         // CODE
-        return new Activity();
-    }
+        return new Activity(,,,);
+    }*/
 
     public ArrayList <Activity> getActivityOfUSer (String userfbID){
         ArrayList <Activity> activityArrayList =new ArrayList<Activity>();

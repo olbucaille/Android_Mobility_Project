@@ -69,7 +69,7 @@ public class HeartBeatDAO extends DAOBase{
         while (cursor.moveToNext()) {
             HeartBeat hb = new HeartBeat();
             long id = cursor.getLong(0);
-            Long activityId = cursor.getLong(1);
+            long activityId = cursor.getLong(1);
             int heartbeat = cursor.getInt(2);
             String date = cursor.getString(3);
             hb.setActivityID(activityId);

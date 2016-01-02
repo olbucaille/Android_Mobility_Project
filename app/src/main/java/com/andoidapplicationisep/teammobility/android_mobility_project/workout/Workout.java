@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -142,9 +143,11 @@ import java.util.Date;
                     running.setDistance(Double.toString(dist));
                     runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
+
                     Running stockee = runningDAO.getRunning(Long.toString(test));
                     ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
+                    //alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID());
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();
@@ -183,21 +186,22 @@ import java.util.Date;
         @Override
         public void run() {
             while (run) {
-                Log.d("distance","toto2");
+                Log.d("distance", "toto2");
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
                         currentHeartBeat = beat * 6;
                         bpm.setText("" + currentHeartBeat);
                         beat = 0;
-                        mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.just_do_it);
+                        CoachMedias cm = Factory.GetACoach(StringProvider.Joker);
+                        int test2 = cm.PickRandomRun();
+                        //int test = R.raw.just_do_it;
+                        mPlayer = MediaPlayer.create(getApplicationContext(), test2);
                         mPlayer.start();
-
                         heartBeat.setActivityID(test);
                         heartBeat.setHeartBeat(currentHeartBeat);
                         heartBeat.setDate(ft_hour.format(date));
                         heartBeatDAO.ajouter(heartBeat);
-
                         //time.setText("Durée de l'entrainement : " + focus.getText());
                         // HeartBeat hb_stockee = heartBeatDAO.getHB(Long.toString(test));
 

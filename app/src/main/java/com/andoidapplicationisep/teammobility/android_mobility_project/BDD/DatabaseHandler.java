@@ -44,8 +44,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String HB_KEY = "id";
     public static final String HB_ACTIVITY_ID = "activity_id";
-    public static final String HB_DATE = "date";
     public static final String HB_HB = "hb";
+    public static final String HB_DATE = "date";
     public static final String HB_TABLE_NAME = "HeartBeat";
 
     public static final String HB_TABLE_CREATE =

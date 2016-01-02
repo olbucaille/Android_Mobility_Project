@@ -1,5 +1,6 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 /**
@@ -29,7 +30,10 @@ public class RunningDAO extends DAOBase {
      * @param r le Running à ajouter à la base
      */
     public void ajouter(Running r) {
-        // CODE
+        ContentValues value = new ContentValues();
+        value.put(RUNNING_ACTIVITY_ID, r.getActivityID());
+        value.put(RUNNING_DISTANCE, r.getDistance());
+        mDb.insert(RUNNING_TABLE_NAME, null, value);
     }
 
     /**

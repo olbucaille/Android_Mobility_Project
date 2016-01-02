@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.ActivityDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.RunningDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
 import com.andoidapplicationisep.teammobility.android_mobility_project.MainActivity;
@@ -46,9 +48,12 @@ import java.util.Date;
     float lon_old = 0;
     double dist = 0;
     int beat = 0;
+    int currentHeartBeat = 0;
     Chronometer focus;
     Button bpm, stop;
     ActivityDAO activityDAO;
+    RunningDAO runningDAO;
+    Running running;
     MediaPlayer mPlayer = null;
 
         protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,7 @@ import java.util.Date;
             activityDAO = new ActivityDAO(this);
             activityDAO.open();
 
-            Activity activity = new Activity();
+            final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
             Date date = new Date();
             SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
@@ -71,6 +76,10 @@ import java.util.Date;
             String userid = AccessToken.getCurrentAccessToken().getUserId();
             activity.setUserFbID(userid);
             activityDAO.ajouter(activity);
+
+            runningDAO = new RunningDAO(this);
+            runningDAO.open();
+            running = new Running();
 
             lat = Globals.getlatitude();
             lon = Globals.getlongitude();
@@ -118,8 +127,11 @@ import java.util.Date;
                     // test BDD
                     activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
 
+                    running.setActivityID(activity.getId());
+                    running.setDistance(Double.toString(dist));
+                    runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + running.getDistance()+"id"+running.getActivityID());
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();
@@ -162,7 +174,8 @@ import java.util.Date;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        bpm.setText(""+beat*6);
+                        currentHeartBeat = beat*6;
+                        bpm.setText(""+currentHeartBeat);
                         beat = 0;
                         mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
                         mPlayer.start();

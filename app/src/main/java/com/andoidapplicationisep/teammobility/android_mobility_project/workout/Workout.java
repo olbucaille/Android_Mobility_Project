@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.ActivityDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.RunningDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
 import com.andoidapplicationisep.teammobility.android_mobility_project.MainActivity;
@@ -46,11 +48,13 @@ import java.util.Date;
     float lon_old = 0;
     double dist = 0;
     int beat = 0;
+    int currentHeartBeat = 0;
     Chronometer focus;
     Button bpm, stop;
     ActivityDAO activityDAO;
+    RunningDAO runningDAO;
+    Running running;
     MediaPlayer mPlayer = null;
-    AlertDialog alertDialog;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -61,7 +65,7 @@ import java.util.Date;
             activityDAO = new ActivityDAO(this);
             activityDAO.open();
 
-            Activity activity = new Activity(null,0,null,null);
+            final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
             Date date = new Date();
             SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
@@ -72,6 +76,10 @@ import java.util.Date;
             String userid = AccessToken.getCurrentAccessToken().getUserId();
             activity.setUserFbID(userid);
             activityDAO.ajouter(activity);
+
+            runningDAO = new RunningDAO(this);
+            runningDAO.open();
+            running = new Running();
 
             lat = Globals.getlatitude();
             lon = Globals.getlongitude();
@@ -87,7 +95,7 @@ import java.util.Date;
             focus = (Chronometer)findViewById(R.id.chronometer1);
             focus.start();
 
-            alertDialog = new AlertDialog.Builder(this).create();
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Fin de l'entrainement");
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -119,8 +127,12 @@ import java.util.Date;
                     // test BDD
                     activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
 
+                    running.setActivityID(activity.getId());
+                    running.setDistance(Double.toString(dist));
+                    runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText());
+                    ArrayList list = runningDAO.getRunning(Long.toString(activity.getId()));
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + list.get(2)+"id"+list.get(1));
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();
@@ -142,7 +154,7 @@ import java.util.Date;
             Any task where you want to control the CPU usage relative to the GUI thread
 
 
-            Je crois qu'il est préférable d'utiliser un thread ICI, on utilisera l'asynctask just pour la communication TCP
+            Je crois qu'il est préférable d'utiliser un thred ICI, on utilisera l'asynctask just pour la communication TCP
           */
             threadUpdateHR.start();
             threadUpdateTask.start();
@@ -163,7 +175,8 @@ import java.util.Date;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        bpm.setText(""+beat*6);
+                        currentHeartBeat = beat*6;
+                        bpm.setText(""+currentHeartBeat);
                         beat = 0;
                         mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
                         mPlayer.start();
@@ -213,21 +226,8 @@ import java.util.Date;
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //demande d'envoie des messages
 
-            focus.stop();
-            //
-            // test BDD
-            activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
-
-            //time.setText("Durée de l'entrainement : " + focus.getText());
-            alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText());
-            alertDialog.show();
-            mPlayer.stop();
-            mPlayer.release();
-            run = false;
-
             Intent intent = new Intent(Workout.this, MainActivity.class);
             //l'intent sert à passer des données entre les classes
-
             startActivity(intent);
             //on ferme l'activité
             finish();

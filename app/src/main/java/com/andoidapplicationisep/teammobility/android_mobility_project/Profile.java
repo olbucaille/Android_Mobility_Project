@@ -46,8 +46,8 @@ public class Profile extends AppCompatActivity {
 
         ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.imagefb);
         profilePictureView.setDrawingCacheEnabled(true);
-        profilePictureView.setProfileId(AccessToken.getCurrentAccessToken().getUserId());
-        */
+        profilePictureView.setProfileId(AccessToken.getCurrentAccessToken().getUserId());*/
+
 
         String userid = AccessToken.getCurrentAccessToken().getUserId();
 

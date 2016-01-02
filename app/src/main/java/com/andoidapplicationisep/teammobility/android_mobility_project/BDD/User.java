@@ -9,6 +9,14 @@ public class User {
     private String name;
     private int selectedCoachId;
 
+    public User (){
+    }
+
+    public User( String fbId,String name,int selectedCoachId){
+        this.fbId = fbId;
+        this.name = name;
+        this.selectedCoachId = selectedCoachId;
+    }
 
     public long getId() {
         return id;

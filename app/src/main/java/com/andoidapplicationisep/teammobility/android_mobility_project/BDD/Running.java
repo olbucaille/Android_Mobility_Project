@@ -11,6 +11,10 @@ public class Running {
         this.activityID= activityID;
         this.distance=distance;
     }
+    public Running (){
+
+    }
+
 
     public String getDistance() {
         return distance;

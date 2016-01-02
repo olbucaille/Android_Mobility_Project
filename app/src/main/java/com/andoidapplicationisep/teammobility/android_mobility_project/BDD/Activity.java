@@ -16,7 +16,8 @@ public class Activity {
     private String end;
 
 
-
+    public Activity(){
+    }
 
     public Activity(String userFbID,int type ,String begin, String end){
         this.userFbID = userFbID;

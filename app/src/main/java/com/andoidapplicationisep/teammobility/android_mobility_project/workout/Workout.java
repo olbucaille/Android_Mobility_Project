@@ -19,12 +19,19 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.ActivityDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
 import com.andoidapplicationisep.teammobility.android_mobility_project.MainActivity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.R;
+import com.facebook.AccessToken;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Guigui on 08/12/2015.
@@ -41,14 +48,29 @@ import java.util.ArrayList;
     int beat = 0;
     Chronometer focus;
     Button bpm, stop;
-
+    ActivityDAO activityDAO;
     MediaPlayer mPlayer = null;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.workout);
 
+            //création d'une nouvelle activité dans la base de donnée
 
+            activityDAO = new ActivityDAO(this);
+            activityDAO.open();
+
+            Activity activity = new Activity();
+            activity.setType(Activity.TYPE_RUNNING);
+            Date date = new Date();
+            SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
+            SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
+            String dayStr = ft_day.format(date);
+            String hourStr = ft_hour.format(date);
+            activity.setBegin(dayStr);
+            String userid = AccessToken.getCurrentAccessToken().getUserId();
+            activity.setUserFbID(userid);
+            activityDAO.ajouter(activity);
 
             lat = Globals.getlatitude();
             lon = Globals.getlongitude();
@@ -92,8 +114,12 @@ import java.util.ArrayList;
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     focus.stop();
+                    //
+                    // test BDD
+                    activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
+
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : "+distance.getText());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText());
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();

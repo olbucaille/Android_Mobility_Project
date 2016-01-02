@@ -6,14 +6,14 @@ import java.util.Date;
  * Created by apple on 25/11/2015.
  */
 public class Activity {
-    static final int TYPE_HEARTBEAT = 1;
-    static final int TYPE_RUNNING = 2;
+    static public final int TYPE_HEARTBEAT = 1;
+    static public final int TYPE_RUNNING = 2;
 
     private long id ;
-    private long userFbID;
+    private String userFbID;
     private int type ;
-    private Date begin;
-    private Date end;
+    private String begin;
+    private String end;
 
 
 
@@ -39,27 +39,28 @@ public class Activity {
         this.id = id;
     }
 
-    public Date getBegin() {
-        return begin;
-    }
 
-    public void setBegin(Date begin) {
-        this.begin = begin;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public long getUserFbID() {
+    public String getUserFbID() {
         return userFbID;
     }
 
-    public void setUserFbID(long userFbID) {
+    public void setUserFbID(String userFbID) {
         this.userFbID = userFbID;
+    }
+
+    public String getBegin() {
+        return begin;
+    }
+
+    public void setBegin(String begin) {
+        this.begin = begin;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 }

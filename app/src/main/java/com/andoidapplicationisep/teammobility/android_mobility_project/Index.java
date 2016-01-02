@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.User;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -27,6 +30,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.Arrays;
 
 
@@ -36,23 +40,24 @@ import java.util.Arrays;
 public class Index extends AppCompatActivity {
     CallbackManager callbackManager;
     boolean loggedIn;
-
+    UserDAO userDAO;
     LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-  /*      if (savedInstanceState == null){
+       if (savedInstanceState == null){
             Globals.clientStatus = Globals.DISCONNECTED;
 
-            Thread threadClient = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Globals.client =  new Client();
-                }
-            });
-            threadClient.start();
-        }*/
+
+           ClientTask clientTask = new ClientTask();
+           clientTask.execute();
+
+        }
+
+        userDAO = new UserDAO(this);
+        userDAO.open();
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -83,7 +88,14 @@ public class Index extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                User user = new User();
+                user.setName("thibault");
 
+                AccessToken at = loginResult.getAccessToken();
+
+                user.setFbId(at.getUserId());
+                userDAO.ajouter(user);
+                /*
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -99,7 +111,7 @@ public class Index extends AppCompatActivity {
                 parameters.putString("fields", "id,name,gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
-
+*/
 
             }
 
@@ -219,4 +231,22 @@ public class Index extends AppCompatActivity {
     public boolean isFacebookLoggedIn(){
         return AccessToken.getCurrentAccessToken() != null;
     }
+
+
+    private class ClientTask extends AsyncTask<Void, Integer, Void> {
+        protected Void doInBackground(Void ... arg0) {
+            Globals.client =  new Client();
+
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Long result) {
+
+        }
+    }
 }
+
+

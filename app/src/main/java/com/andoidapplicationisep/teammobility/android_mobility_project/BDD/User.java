@@ -6,5 +6,29 @@ package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 public class User {
     private long id;//key
     private String fbId;
-    private long name;
+    private String name;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

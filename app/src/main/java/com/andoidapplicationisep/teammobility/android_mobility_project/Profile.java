@@ -49,7 +49,7 @@ public class Profile extends AppCompatActivity {
         profilePictureView.setProfileId(AccessToken.getCurrentAccessToken().getUserId());
         */
 
-        //String userid = AccessToken.getCurrentAccessToken().getUserId();
+        String userid = AccessToken.getCurrentAccessToken().getUserId();
 
         //CircleImageView circle = (CircleImageView) findViewById(R.id.image);
 

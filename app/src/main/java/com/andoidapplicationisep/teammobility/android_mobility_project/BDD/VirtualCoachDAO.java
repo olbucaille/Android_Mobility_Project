@@ -1,9 +1,11 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 
+import android.content.Context;
+
 /**
  * Created by apple on 25/11/2015.
  */
-public class VirtualCoachDAO {
+public class VirtualCoachDAO extends DAOBase{
     public static final String TABLE_NAME = "VirtualCoach";
     public static final String KEY = "id";
 
@@ -11,6 +13,10 @@ public class VirtualCoachDAO {
     //public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + INTITULE + " TEXT, " + SALAIRE + " REAL);";
 
     public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+
+    public VirtualCoachDAO(Context pContext) {
+        super(pContext);
+    }
 
     /**
      * @param v le VirtualCoach à ajouter à la base

@@ -1,17 +1,28 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 
+import android.content.Context;
+
 /**
  * Created by apple on 25/11/2015.
  */
-public class HeartBeatDAO {
+public class HeartBeatDAO extends DAOBase{
 
-    public static final String TABLE_NAME = "HeartBeat";
-    public static final String KEY = "id";
+    public static final String HB_KEY = "id";
+    public static final String HB_ACTIVITY_ID = "activity_id";
+    public static final String HB_DATE = "date";
+    public static final String HB_TABLE_NAME = "HeartBeat";
 
+    public static final String HB_TABLE_CREATE =
+            "CREATE TABLE " + HB_TABLE_NAME + " (" +
+                    HB_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    HB_ACTIVITY_ID + " TEXT, " +
+                    HB_DATE + " TEXT);";
 
-    //public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + INTITULE + " TEXT, " + SALAIRE + " REAL);";
+    public static final String HB_TABLE_DROP = "DROP TABLE IF EXISTS " + HB_TABLE_NAME + ";";
 
-    public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+    public HeartBeatDAO(Context pContext) {
+        super(pContext);
+    }
 
     /**
      * @param HB le HeartBeat à ajouter à la base

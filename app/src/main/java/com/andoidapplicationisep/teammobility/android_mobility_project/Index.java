@@ -95,6 +95,11 @@ public class Index extends AppCompatActivity {
 
                 user.setFbId(at.getUserId());
                 userDAO.ajouter(user);
+                Intent intent = new Intent(Index.this,MainActivity.class);
+                //l'intent sert à passer des données entre les classes
+                startActivity(intent);
+                //on ferme l'activité
+                finish();
                 /*
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),

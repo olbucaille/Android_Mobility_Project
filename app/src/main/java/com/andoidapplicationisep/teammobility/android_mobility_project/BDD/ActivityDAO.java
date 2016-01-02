@@ -78,10 +78,15 @@ public class ActivityDAO extends DAOBase{
 
         Cursor cursor = mDb.rawQuery("select " + "*" + " from " + ACTIVITY_TABLE_NAME + " where " + ACTIVITY_USER_ID +"= ? ", new String[]{userfbID});
         while (cursor.moveToNext()) {
-            long id = cursor.getLong(0);
+            Activity activity = new Activity();
+            activity.setId(cursor.getLong(0));
+            activity.setUserFbID(cursor.getString(1));
+            activity.setType(cursor.getInt(2));
+            activity.setBegin(cursor.getString(3));
+            activity.setEnd(cursor.getString(4));
             String userID = cursor.getString(1);
-            Log.d("user",userID);
 
+            activityArrayList.add(activity);
 
         }
         cursor.close();

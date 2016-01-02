@@ -20,12 +20,12 @@ import static java.util.Collections.*;
  */
 public class ListViewAdapter extends BaseAdapter{
 
-private static ArrayList <Stats> statsList ;
+private static ArrayList <com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity> activityArrayList ;
 private LayoutInflater mInflater;
 
-        public ListViewAdapter (Context context,ArrayList <Stats> statsList){
-            this.statsList = statsList;
-            //sort(statsList);
+        public ListViewAdapter (Context context,ArrayList <com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity> activityArrayList){
+            this.activityArrayList = activityArrayList;
+            //sort(activityArrayList);
             mInflater = LayoutInflater.from(context);
         }
 
@@ -33,13 +33,13 @@ private LayoutInflater mInflater;
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return statsList.size();
+            return activityArrayList.size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return statsList.get(position);
+            return activityArrayList.get(position);
         }
 
         @Override

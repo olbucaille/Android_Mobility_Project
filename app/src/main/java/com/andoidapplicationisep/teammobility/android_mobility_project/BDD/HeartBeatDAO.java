@@ -1,5 +1,6 @@
 package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -33,12 +34,12 @@ public class HeartBeatDAO extends DAOBase{
     /**
      * @param HB le HeartBeat à ajouter à la base
      */
-    public void ajouter(HeartBeat HB) {
+    public long ajouter(HeartBeat HB) {
         ContentValues value = new ContentValues();
         value.put(HB_ACTIVITY_ID, HB.getActivityID());
         value.put(HB_HB, HB.getHeartBeat());
         value.put(HB_DATE, HB.getDate());
-        mDb.insert(HB_TABLE_NAME, null, value);
+        return mDb.insert(HB_TABLE_NAME, null, value);
     }
 
     /**

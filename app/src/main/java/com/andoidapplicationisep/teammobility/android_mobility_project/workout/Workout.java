@@ -137,7 +137,7 @@ import java.util.Date;
                     focus.stop();
                     //
                     // test BDD
-                    activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
+                    //activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
 
                     running.setActivityID(test);
                     running.setDistance(Double.toString(dist));

@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.ActivityDAO;
+import com.facebook.AccessToken;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,7 +25,7 @@ import java.util.Random;
  */
 public class HistoryStatsFragment extends Fragment {
 
-    static ArrayList<Stats> statsArrayList = new ArrayList<Stats>();
+    static ArrayList<Activity> activityArrayList = new ArrayList<Activity>();
 
 
     public HistoryStatsFragment() {
@@ -30,17 +34,18 @@ public class HistoryStatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_stats_fragment, container, false);
-        statsArrayList.clear();
-        for (int i = 0; i < 5; i++) {
+        activityArrayList.clear();
 
-            // adding HashList to ArrayList
-            statsArrayList.add(new Stats());
-        }
+        ActivityDAO activityDAO = new ActivityDAO(getActivity());
+        activityDAO.open();
+        activityArrayList = activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
+        // adding HashList to ArrayList
+
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
         // Getting adapter by passing xml data ArrayList
-        ListViewAdapter adapter = new ListViewAdapter(this.getContext(), statsArrayList);
+        ListViewAdapter adapter = new ListViewAdapter(this.getContext(), activityArrayList);
         listView.setAdapter(adapter);
 
         // Click event for single list row

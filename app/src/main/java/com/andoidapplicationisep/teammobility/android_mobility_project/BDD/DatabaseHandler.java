@@ -45,12 +45,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String HB_KEY = "id";
     public static final String HB_ACTIVITY_ID = "activity_id";
     public static final String HB_DATE = "date";
+    public static final String HB_HB = "hb";
     public static final String HB_TABLE_NAME = "HeartBeat";
 
     public static final String HB_TABLE_CREATE =
             "CREATE TABLE " + HB_TABLE_NAME + " (" +
                     HB_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     HB_ACTIVITY_ID + " TEXT, " +
+                    HB_HB + "INTEGER,"+
                     HB_DATE + " TEXT);";
 
     public static final String HB_TABLE_DROP = "DROP TABLE IF EXISTS " + HB_TABLE_NAME + ";";

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Activity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.ActivityDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.HeartBeat;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.HeartBeatDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.RunningDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
@@ -46,7 +48,7 @@ import java.util.Date;
     float lon = 0;
     float lat_old = 0;
     float lon_old = 0;
-    double dist = 0;
+    double dist = 2;
     int beat = 0;
     int currentHeartBeat = 0;
     Chronometer focus;
@@ -54,7 +56,13 @@ import java.util.Date;
     ActivityDAO activityDAO;
     RunningDAO runningDAO;
     Running running;
+    HeartBeatDAO heartBeatDAO;
+    HeartBeat heartBeat;
     MediaPlayer mPlayer = null;
+    long test = 0;
+    Date date = new Date();
+    SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
+    SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -67,19 +75,22 @@ import java.util.Date;
 
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
-            Date date = new Date();
-            SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
-            SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
+
+
             String dayStr = ft_day.format(date);
             String hourStr = ft_hour.format(date);
             activity.setBegin(dayStr);
             String userid = AccessToken.getCurrentAccessToken().getUserId();
             activity.setUserFbID(userid);
-            activityDAO.ajouter(activity);
-
+            test = activityDAO.ajouter(activity);
+            Log.d("IDDDDD", ""+test);
             runningDAO = new RunningDAO(this);
             runningDAO.open();
             running = new Running();
+            heartBeatDAO = new HeartBeatDAO(this);
+            heartBeatDAO.open();
+            heartBeat = new HeartBeat();
+
 
             lat = Globals.getlatitude();
             lon = Globals.getlongitude();
@@ -127,12 +138,13 @@ import java.util.Date;
                     // test BDD
                     activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
 
-                    running.setActivityID(activity.getId());
+                    running.setActivityID(test);
                     running.setDistance(Double.toString(dist));
                     runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    ArrayList list = runningDAO.getRunning(Long.toString(activity.getId()));
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + list.get(2)+"id"+list.get(1));
+                    Running stockee = runningDAO.getRunning(Long.toString(test));
+                    ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();
@@ -175,11 +187,20 @@ import java.util.Date;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        currentHeartBeat = beat*6;
-                        bpm.setText(""+currentHeartBeat);
+                        currentHeartBeat = beat * 6;
+                        bpm.setText("" + currentHeartBeat);
                         beat = 0;
-                        mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.just_do_it);
+                        mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.just_do_it);
                         mPlayer.start();
+
+                        heartBeat.setActivityID(test);
+                        heartBeat.setHeartBeat(currentHeartBeat);
+                        heartBeat.setDate(ft_hour.format(date));
+                        heartBeatDAO.ajouter(heartBeat);
+
+                        //time.setText("Durée de l'entrainement : " + focus.getText());
+                        // HeartBeat hb_stockee = heartBeatDAO.getHB(Long.toString(test));
+
                     }
                 });
                 try {

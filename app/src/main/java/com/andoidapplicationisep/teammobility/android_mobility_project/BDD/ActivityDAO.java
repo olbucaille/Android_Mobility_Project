@@ -39,15 +39,16 @@ public class ActivityDAO extends DAOBase{
     /**
      * @param a le Activity à ajouter à la base
      */
-    public void ajouter(Activity a) {
+    public long ajouter(Activity a) {
         // CODE
 
         ContentValues value = new ContentValues();
         value.put(ACTIVITY_USER_ID, a.getUserFbID());
         value.put(ACTIVITY_TYPE, a.getType());
         value.put(ACTIVITY_BEGIN, a.getBegin());
-        value.put(ACTIVITY_END,a.getEnd());
-        mDb.insert(ACTIVITY_TABLE_NAME, null, value);
+        value.put(ACTIVITY_END, a.getEnd());
+        return mDb.insert(ACTIVITY_TABLE_NAME, null, value);
+
     }
 
     /**

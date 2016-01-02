@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
+
 import java.util.ArrayList;
 
 /**
@@ -61,17 +63,19 @@ public class RunningDAO extends DAOBase {
         // CODE
         return new Running();
     }
-    public ArrayList<Activity> getRunning (String activityID) {
-        ArrayList<Activity> activityArrayList = new ArrayList<Activity>();
-
+    public Running getRunning (String activityID) {
+        Running running = new Running();
         Cursor cursor = mDb.rawQuery("select " + "*" + " from " + RUNNING_TABLE_NAME + " where " + RUNNING_ACTIVITY_ID + "= ? ", new String[]{activityID});
         while (cursor.moveToNext()) {
             long id = cursor.getLong(0);
-            String activityId = cursor.getString(1);
+            Long activityId = cursor.getLong(1);
             int distance = cursor.getInt(2);
-            Log.d("activityId", activityId);
+            running.setActivityID(activityId);
+            running.setDistance(Integer.toString(distance));
+           //Log.d("activityId", activityId);
         }
+
         cursor.close();
-        return activityArrayList;
+        return running;
     }
 }

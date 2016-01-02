@@ -8,14 +8,7 @@ import java.util.Date;
 public class HeartBeat {
     private long activityID;
     private int heartBeat;
-    private String date;
-
-    public HeartBeat(long activityID ,int heartBeat,String date){
-        this.activityID = activityID;
-        this.heartBeat = heartBeat;
-        this.date = date;
-
-    }
+    private Date date;
 
 
     public long getActivityID() {
@@ -34,12 +27,11 @@ public class HeartBeat {
         this.heartBeat = heartBeat;
     }
 
-
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

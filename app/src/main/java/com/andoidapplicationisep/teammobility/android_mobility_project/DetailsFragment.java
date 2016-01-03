@@ -41,8 +41,8 @@ public class DetailsFragment extends Fragment {
 
 
 
-    public DetailsFragment() {
-
+    public DetailsFragment( Long id) {
+        this.setStatId(id);
     }
 
 
@@ -110,16 +110,22 @@ public class DetailsFragment extends Fragment {
         HeartBeatDAO heartBeatDAO = new HeartBeatDAO(getActivity());
         heartBeatDAO.open();
         //heartBeat = new HeartBeat();
+        Log.d("HBid",""+Long.toString(id));
         ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(id));
         int i = 0;
+        ArrayList<String> date = new ArrayList<String>();
+
+
         for (HeartBeat hb : hb_stockee ) {
             e1.add(new Entry((int) hb.getHeartBeat(), i));
+            date.add(hb.getDate());
+            Log.d("HB",""+hb.getHeartBeat());
             i++;
         }
 
 
 
-        LineDataSet d1 = new LineDataSet(e1, "New DataSet " + cnt + ", (1)");
+        LineDataSet d1 = new LineDataSet(e1, "Pulsation cardiaque " + cnt + ", (1)");
         d1.setLineWidth(2.5f);
         d1.setCircleSize(4.5f);
         d1.setHighLightColor(Color.rgb(244, 117, 117));
@@ -133,36 +139,14 @@ public class DetailsFragment extends Fragment {
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         sets.add(d1);
 
-        LineData cd = new LineData(getMonths(), sets);
+
+
+        LineData cd = new LineData(date, sets);
         return cd;
     }
 
 
 
-    /**
-     * generates a random ChartData object with just one DataSet
-     *
-     * @return
-     */
-
-    private ArrayList<String> getMonths() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        m.add("Jan");
-        m.add("Feb");
-        m.add("Mar");
-        m.add("Apr");
-        m.add("May");
-        m.add("Jun");
-        m.add("Jul");
-        m.add("Aug");
-        m.add("Sep");
-        m.add("Okt");
-        m.add("Nov");
-        m.add("Dec");
-
-        return m;
-    }
 
 
 

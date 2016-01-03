@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "CREATE TABLE " + HB_TABLE_NAME + " (" +
                     HB_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     HB_ACTIVITY_ID + " TEXT, " +
-                    HB_HB + "INTEGER,"+
+                    HB_HB + " INTEGER,"+
                     HB_DATE + " TEXT);";
 
     public static final String HB_TABLE_DROP = "DROP TABLE IF EXISTS " + HB_TABLE_NAME + ";";

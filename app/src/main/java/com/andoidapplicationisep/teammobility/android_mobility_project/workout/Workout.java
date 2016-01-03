@@ -186,7 +186,6 @@ import java.util.Date;
         @Override
         public void run() {
             while (run) {
-                Log.d("distance", "toto2");
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
@@ -198,6 +197,7 @@ import java.util.Date;
                         //int test = R.raw.just_do_it;
                         mPlayer = MediaPlayer.create(getApplicationContext(), test2);
                         mPlayer.start();
+                        Log.d("activity ID",""+test);
                         heartBeat.setActivityID(test);
                         heartBeat.setHeartBeat(currentHeartBeat);
                         heartBeat.setDate(ft_hour.format(date));
@@ -208,7 +208,7 @@ import java.util.Date;
                     }
                 });
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -221,7 +221,6 @@ import java.util.Date;
         @Override
         public void run() {
             while (run) {
-                Log.d("distance","toto");
                 lat_old = lat;
                 lon_old = lon;
                 lat = (float) (Globals.getlatitude());

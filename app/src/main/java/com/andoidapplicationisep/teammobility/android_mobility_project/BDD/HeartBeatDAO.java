@@ -3,6 +3,7 @@ package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class HeartBeatDAO extends DAOBase{
             "CREATE TABLE " + HB_TABLE_NAME + " (" +
                     HB_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     HB_ACTIVITY_ID + " TEXT, " +
-                    HB_HB + "INTEGER,"+
+                    HB_HB + " INTEGER,"+
                     HB_DATE + " TEXT);";
 
     public static final String HB_TABLE_DROP = "DROP TABLE IF EXISTS " + HB_TABLE_NAME + ";";
@@ -76,7 +77,7 @@ public class HeartBeatDAO extends DAOBase{
             hb.setHeartBeat(heartbeat);
             hb.setDate(date);
             hbArrayList.add(hb);
-            //Log.d("activityId", activityId);
+            Log.d("activityId", ""+activityId);
         }
 
         cursor.close();

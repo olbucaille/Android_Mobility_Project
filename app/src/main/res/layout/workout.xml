@@ -3,13 +3,22 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
-    >
 
+    >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:textAppearance ="@style/text_title_style"
+        android:background="@drawable/fond_titre"
+        android:textColor="#ffffff"
+        android:text="Workout"/>
     <TextView
         android:id="@+id/latitude"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title"
         android:textAppearance ="@style/text_title_style"
         android:textColor="#000000"
         android:text="latitude"/>
@@ -24,24 +33,27 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="190dp"
-        android:layout_height="190dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/longitude"
         android:layout_marginTop="10dp"
-        android:textColor="#FFFFFF"
+        android:layout_marginLeft="20dp"
+        android:textColor="#000000"
         android:text="BPM"
-        android:background="@drawable/heartrate"
+        android:background="@drawable/fond"
         android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/distance"
-        android:layout_width="190dp"
-        android:layout_height="190dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_toRightOf="@id/button1"
         android:layout_alignTop="@id/button1"
+        android:layout_alignRight="@+id/chronometer1"
+        android:layout_marginLeft="20dp"
         android:textAppearance ="@style/text_title_style"
         android:textColor="#000000"
-        android:background="@drawable/distance"
+        android:background="@drawable/flash"
         android:textSize="20dp"
         android:text="distance"/>
 
@@ -50,9 +62,11 @@
         android:textColor="#D40659"
         android:textSize="80dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/button1"
+        android:background="@drawable/fond"
         android:text="Chronometer"
         android:layout_gravity="center"/>
 
@@ -64,7 +78,8 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/chronometer1"
         android:layout_gravity="center"
-        android:background="#D40659"
+        android:textColor="#ffffff"
+        android:background="#000000"
         android:text="Stop"/>
 
 </RelativeLayout>

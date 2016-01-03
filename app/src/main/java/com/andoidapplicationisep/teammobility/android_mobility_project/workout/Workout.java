@@ -68,6 +68,7 @@ import java.util.Random;
     SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
     String userid = AccessToken.getCurrentAccessToken().getUserId();
     int coach = 1;
+    String coachStr = "1";
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -79,8 +80,8 @@ import java.util.Random;
             activityDAO.open();
             userDAO = new UserDAO(this);
             userDAO.open();
-            String coachStr = userDAO.getSelectedCaoch(userid);
-
+            coachStr = userDAO.getSelectedCaoch(userid);
+            Log.d("Cocah : ", ""+coachStr);
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
 
@@ -264,14 +265,14 @@ import java.util.Random;
                         Log.d("aléatoire", "" + randomInt);
                         //get current coach
                         CoachMedias cm;
-                        switch(coach) {
-                            case 1:
+                        switch (coachStr){
+                            case "1":
                                 cm = Factory.GetACoach(StringProvider.Superman);
                                 break;
-                            case 2:
+                            case "2":
                                 cm = Factory.GetACoach(StringProvider.Batman);
                                 break;
-                            case 3:
+                            case "3":
                                 cm = Factory.GetACoach(StringProvider.Joker);
                                 break;
                             default:
@@ -296,6 +297,10 @@ import java.util.Random;
                                 }
                                 break;
                             case 1:
+                                if((currentHeartBeat>=0)&&(currentHeartBeat<90)&&start==false){
+                                    voice = cm.GetList_Hb(0);
+                                    start=true;
+                                }
                                 if((currentHeartBeat>=90)&&(currentHeartBeat<110)){
                                     voice = cm.GetList_Hb(0);
                                 }

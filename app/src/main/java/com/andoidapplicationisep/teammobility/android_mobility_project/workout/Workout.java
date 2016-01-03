@@ -78,12 +78,12 @@ import java.util.Random;
 
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
-            test = activityDAO.ajouter(activity);
+
             String dayStr = ft_day.format(date);
             String hourStr = ft_hour.format(date);
             activity.setBegin(dayStr);
             activity.setUserFbID(userid);
-
+            test = activityDAO.ajouter(activity);
             Log.d("IDDDDD", ""+test);
             runningDAO = new RunningDAO(this);
             runningDAO.open();

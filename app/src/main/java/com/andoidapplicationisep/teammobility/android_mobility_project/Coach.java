@@ -27,8 +27,8 @@ public class Coach {
 
         ArrayList<Coach> coachList = new ArrayList<Coach>();
         coachList.add(new Coach(R.drawable.comics_superman_icon, 1,1,"Superman", res.getString(R.string.description_superman)));
-        coachList.add(new Coach(R.drawable.comics_batman_joker_icon,2,2,"Le Joker", res.getString(R.string.description_Joker)));
-        coachList.add(new Coach(R.drawable.comics_batman_icon,3,3,"Le Batman", res.getString(R.string.description_batman)));
+        coachList.add(new Coach(R.drawable.comics_batman_icon,2,2,"Le Batman", res.getString(R.string.description_batman)));
+        coachList.add(new Coach(R.drawable.comics_batman_joker_icon,3,3,"Le Joker", res.getString(R.string.description_Joker)));
         return coachList;
 
     }

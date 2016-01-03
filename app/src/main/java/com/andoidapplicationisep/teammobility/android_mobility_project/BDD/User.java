@@ -7,12 +7,12 @@ public class User {
     private long id;//key
     private String fbId;
     private String name;
-    private int selectedCoachId;
+    private String selectedCoachId;
 
     public User (){
     }
 
-    public User( String fbId,String name,int selectedCoachId){
+    public User( String fbId,String name,String selectedCoachId){
         this.fbId = fbId;
         this.name = name;
         this.selectedCoachId = selectedCoachId;
@@ -42,11 +42,11 @@ public class User {
         this.name = name;
     }
 
-    public int getSelectedCoachId() {
+    public String getSelectedCoachId() {
         return selectedCoachId;
     }
 
-    public void setSelectedCoachId(int selectedCoachId) {
+    public void setSelectedCoachId(String selectedCoachId) {
         this.selectedCoachId = selectedCoachId;
     }
 }

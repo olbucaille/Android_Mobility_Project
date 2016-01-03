@@ -19,7 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USER_FB_ID + " TEXT," +
                     USER_NAME + " TEXT, " +
-                    USER_COACH_ID+ " INTEGER);";
+                    USER_COACH_ID+ " TEXT);";
 
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 

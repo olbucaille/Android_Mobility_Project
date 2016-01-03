@@ -94,7 +94,8 @@ public class Index extends AppCompatActivity {
                 AccessToken at = loginResult.getAccessToken();
 
                 user.setFbId(at.getUserId());
-                user.setSelectedCoachId(1);// on met le coach 1 par defaut
+                user.setSelectedCoachId("1");// on met le coach 1 par defaut
+
                 userDAO.ajouter(user);
                 Intent intent = new Intent(Index.this,MainActivity.class);
                 //l'intent sert à passer des données entre les classes

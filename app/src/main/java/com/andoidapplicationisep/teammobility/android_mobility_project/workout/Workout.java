@@ -79,7 +79,7 @@ import java.util.Random;
             activityDAO.open();
             userDAO = new UserDAO(this);
             userDAO.open();
-            coach = userDAO.getSelectedCaoch(userid);
+            String coachStr = userDAO.getSelectedCaoch(userid);
 
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);

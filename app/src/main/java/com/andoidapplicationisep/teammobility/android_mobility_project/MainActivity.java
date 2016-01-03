@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.workout.Workout;
+import com.facebook.AccessToken;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         })*/
+
 
         // connexion facebook et google +
         //enregistrement de la connexion pour une reconnexion auto

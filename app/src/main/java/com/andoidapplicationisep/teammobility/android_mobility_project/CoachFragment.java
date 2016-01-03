@@ -2,6 +2,7 @@ package com.andoidapplicationisep.teammobility.android_mobility_project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,10 @@ public class CoachFragment extends Fragment {
                 UserDAO userDAO = new UserDAO(getActivity());
                 userDAO.open();
                 String userid = AccessToken.getCurrentAccessToken().getUserId();
-                userDAO.setSelectedCaoch(userid, coach.id);
+                userDAO.setSelectedCaoch(userid, Integer.toString(coach.id));
+
+
+                Log.d("coach ID get", "" +  userDAO.getSelectedCaoch(userid));
             }
         });
 

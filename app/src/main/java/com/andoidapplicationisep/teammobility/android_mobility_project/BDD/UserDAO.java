@@ -3,6 +3,7 @@ package com.andoidapplicationisep.teammobility.android_mobility_project.BDD;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * Created by apple on 25/11/2015.
@@ -20,7 +21,7 @@ public class UserDAO extends DAOBase{
                     USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USER_FB_ID + " TEXT," +
                     USER_NAME + " TEXT, " +
-                    USER_COACH_ID+ " INTEGER);";
+                    USER_COACH_ID+ " TEXT);";
 
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
@@ -36,7 +37,7 @@ public class UserDAO extends DAOBase{
         ContentValues value = new ContentValues();
         value.put(USER_FB_ID, u.getFbId());
         value.put(USER_NAME, u.getName());
-        value.put(USER_NAME, u.getSelectedCoachId());
+        value.put(USER_COACH_ID, u.getSelectedCoachId());
         mDb.insert(USER_TABLE_NAME, null, value);
     }
 
@@ -62,21 +63,28 @@ public class UserDAO extends DAOBase{
         return new User();
     }
 
-    public void setSelectedCaoch(String userFbId,int coachID){
-        Cursor cursor = mDb.rawQuery("UPDATE " + USER_TABLE_NAME +
-                " SET "+ USER_COACH_ID+ " = "+coachID+
-                " WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
+    public void setSelectedCaoch(String userFbId,String coachID){
+        mDb.execSQL("UPDATE " + USER_TABLE_NAME +
+                " SET "+ USER_COACH_ID+ " = "+coachID);
 
     }
 
-    public int getSelectedCaoch(String userFbId){
-        int coachId=0;
-        Cursor cursor = mDb.rawQuery("SELECT " + USER_COACH_ID +
-                " IN "+ USER_TABLE_NAME+
+    public String getSelectedCaoch(String userFbId){
+        String coachId="";
+        Cursor cursor = mDb.rawQuery("SELECT " +" * " +
+                " FROM "+ USER_TABLE_NAME+
                 " WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
 
         while(cursor.moveToNext()){
-            coachId = cursor.getInt(5);
+            coachId = cursor.getString(0);
+            Log.d("coach iiid", "" +coachId);
+            coachId = cursor.getString(1);
+            Log.d("coach iiid", "" +coachId);
+            coachId = cursor.getString(2);
+            Log.d("coach iiid", "" +coachId);
+            coachId = cursor.getString(3);
+            Log.d("coach iiid", "" +coachId);
+
         }
         return coachId;
     }

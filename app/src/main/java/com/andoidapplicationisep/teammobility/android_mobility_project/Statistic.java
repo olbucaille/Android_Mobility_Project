@@ -38,8 +38,10 @@ public class Statistic  extends FragmentActivity {
     }
 
 
-    public static void goOnDetailsFragment(){
+    public static void goOnDetailsFragment(Long statId){
         id=1;
+        DetailsFragment df = new DetailsFragment();
+        df.setStatId(statId);
         myFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right)
                 .replace(R.id.stats_container, new DetailsFragment())

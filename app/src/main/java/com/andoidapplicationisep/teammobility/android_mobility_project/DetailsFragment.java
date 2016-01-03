@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.HeartBeat;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.HeartBeatDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.RunningDAO;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -33,13 +37,15 @@ import com.github.mikephil.charting.utils.Utils;
  * Created by apple on 04/11/2015.
  */
 public class DetailsFragment extends Fragment {
-
+    private long id;
 
 
 
     public DetailsFragment() {
 
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.details_stats_fragment, container, false);
@@ -57,8 +63,13 @@ public class DetailsFragment extends Fragment {
 
         return view;
     }
+    public long getStatId() {
+        return id;
+    }
 
-
+    public void setStatId(long id) {
+        this.id = id;
+    }
 
 
     /** adapter that supports 3 different item types */
@@ -93,10 +104,20 @@ public class DetailsFragment extends Fragment {
     private LineData generateDataLine(int cnt) {
 
         ArrayList<Entry> e1 = new ArrayList<Entry>();
-
-        for (int i = 0; i < 12; i++) {
-            e1.add(new Entry((int) (Math.random() * 65) + 40, i));
+        RunningDAO runningDAO = new RunningDAO(getActivity());
+        runningDAO.open();
+        //running = new Running();
+        HeartBeatDAO heartBeatDAO = new HeartBeatDAO(getActivity());
+        heartBeatDAO.open();
+        //heartBeat = new HeartBeat();
+        ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(id));
+        int i = 0;
+        for (HeartBeat hb : hb_stockee ) {
+            e1.add(new Entry((int) hb.getHeartBeat(), i));
+            i++;
         }
+
+
 
         LineDataSet d1 = new LineDataSet(e1, "New DataSet " + cnt + ", (1)");
         d1.setLineWidth(2.5f);
@@ -107,24 +128,10 @@ public class DetailsFragment extends Fragment {
 
 
 
-        ArrayList<Entry> e2 = new ArrayList<Entry>();
 
-        for (int i = 0; i < 12; i++) {
-            e2.add(new Entry(e1.get(i).getVal() - 30, i));
-        }
-
-        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
-        d2.setLineWidth(2.5f);
-        d2.setCircleSize(4.5f);
-        d2.setHighLightColor(Color.rgb(244, 117, 117));
-        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setDrawValues(false);
-        d2.setValueTextColor(Color.WHITE);
 
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         sets.add(d1);
-        sets.add(d2);
 
         LineData cd = new LineData(getMonths(), sets);
         return cd;

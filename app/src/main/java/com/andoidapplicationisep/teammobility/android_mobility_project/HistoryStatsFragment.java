@@ -54,7 +54,8 @@ public class HistoryStatsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView parent, View view,
                                     int position, long id) {
-                Statistic.goOnDetailsFragment();
+                Log.d("activity id",""+activityArrayList.get(position).getId());
+                Statistic.goOnDetailsFragment(activityArrayList.get(position).getId());
             }
         });
 

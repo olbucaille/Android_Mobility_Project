@@ -259,7 +259,8 @@ import java.util.Random;
                         Random randomGenerator = new Random();
                         int randomInt = randomGenerator.nextInt(2);
                         Log.d("aléatoire", ""+randomInt);
-                        CoachMedias cm = Factory.GetACoach(StringProvider.Batman);
+                        //get current coach
+                        CoachMedias cm = Factory.GetACoach(StringProvider.Joker);
                         int voice = cm.PickRandomPerso();
                         switch(randomInt) {
                             case 0:

@@ -59,6 +59,7 @@ import java.util.Random;
     RunningDAO runningDAO;
     Running running;
     HeartBeatDAO heartBeatDAO;
+    UserDAO userDAO;
     HeartBeat heartBeat;
     MediaPlayer mPlayer = null;
     long test = 0;
@@ -66,6 +67,7 @@ import java.util.Random;
     SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
     SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
     String userid = AccessToken.getCurrentAccessToken().getUserId();
+    int coach = 1;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -75,6 +77,9 @@ import java.util.Random;
 
             activityDAO = new ActivityDAO(this);
             activityDAO.open();
+            userDAO = new UserDAO(this);
+            userDAO.open();
+            coach = userDAO.getSelectedCaoch(userid);
 
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
@@ -256,9 +261,23 @@ import java.util.Random;
                     public void run() {
                         Random randomGenerator = new Random();
                         int randomInt = randomGenerator.nextInt(2);
-                        Log.d("aléatoire", ""+randomInt);
+                        Log.d("aléatoire", "" + randomInt);
                         //get current coach
-                        CoachMedias cm = Factory.GetACoach(StringProvider.Joker);
+                        CoachMedias cm;
+                        switch(coach) {
+                            case 1:
+                                cm = Factory.GetACoach(StringProvider.Superman);
+                                break;
+                            case 2:
+                                cm = Factory.GetACoach(StringProvider.Batman);
+                                break;
+                            case 3:
+                                cm = Factory.GetACoach(StringProvider.Joker);
+                                break;
+                            default:
+                                cm = Factory.GetACoach(StringProvider.Superman);
+                                break;
+                        }
                         int voice = cm.PickRandomPerso();
                         switch(randomInt) {
                             case 0:

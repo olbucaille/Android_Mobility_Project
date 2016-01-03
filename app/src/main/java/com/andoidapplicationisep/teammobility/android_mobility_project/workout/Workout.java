@@ -65,6 +65,7 @@ import java.util.Random;
     Date date = new Date();
     SimpleDateFormat ft_day = new SimpleDateFormat ("dd/MM/yyyy");
     SimpleDateFormat ft_hour = new SimpleDateFormat ("hh:mm:ss");
+    String userid = AccessToken.getCurrentAccessToken().getUserId();
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -77,14 +78,12 @@ import java.util.Random;
 
             final Activity activity = new Activity();
             activity.setType(Activity.TYPE_RUNNING);
-
-
+            test = activityDAO.ajouter(activity);
             String dayStr = ft_day.format(date);
             String hourStr = ft_hour.format(date);
             activity.setBegin(dayStr);
-            String userid = AccessToken.getCurrentAccessToken().getUserId();
             activity.setUserFbID(userid);
-            test = activityDAO.ajouter(activity);
+
             Log.d("IDDDDD", ""+test);
             runningDAO = new RunningDAO(this);
             runningDAO.open();
@@ -147,12 +146,11 @@ import java.util.Random;
                     //
                     // test BDD
                     //activityDAO.getActivityOfUSer(AccessToken.getCurrentAccessToken().getUserId());
-
                     running.setActivityID(test);
                     running.setDistance(Double.toString(dist));
                     runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-
+                    activityDAO.setEnd(userid, (String) focus.getText());
                     Running stockee = runningDAO.getRunning(Long.toString(test));
                     ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
                     //alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
@@ -309,11 +307,20 @@ import java.util.Random;
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //demande d'envoie des messages
-
             Intent intent = new Intent(Workout.this, MainActivity.class);
             //l'intent sert à passer des données entre les classes
             startActivity(intent);
             //on ferme l'activité
+            running.setActivityID(test);
+            running.setDistance(Double.toString(dist));
+            runningDAO.ajouter(running);
+            //time.setText("Durée de l'entrainement : " + focus.getText());
+            activityDAO.setEnd(userid, (String) focus.getText());
+            Running stockee = runningDAO.getRunning(Long.toString(test));
+            ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
+            mPlayer.stop();
+            mPlayer.release();
+            run = false;
             finish();
         }
         return super.onKeyDown(keyCode, event);

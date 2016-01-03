@@ -50,7 +50,12 @@ public class ActivityDAO extends DAOBase{
         return mDb.insert(ACTIVITY_TABLE_NAME, null, value);
 
     }
+    public void setEnd(String userFbId, String end){
+        Cursor cursor = mDb.rawQuery("UPDATE " + ACTIVITY_TABLE_NAME +
+                " SET "+ ACTIVITY_END + " = "+end+
+                " WHERE "+ ACTIVITY_USER_ID+" = ?", new String[]{ userFbId});
 
+    }
     /**
      * @param id l'identifiant du Activity à supprimer
      */

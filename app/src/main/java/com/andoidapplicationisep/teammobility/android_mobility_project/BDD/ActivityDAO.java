@@ -52,7 +52,7 @@ public class ActivityDAO extends DAOBase{
     }
     public void setEnd(String userFbId, String end){
         Cursor cursor = mDb.rawQuery("UPDATE " + ACTIVITY_TABLE_NAME +
-                " SET "+ ACTIVITY_END + " = "+end+
+                " SET "+ ACTIVITY_END + " = \"" +end+ "\"" +
                 " WHERE "+ ACTIVITY_USER_ID+" = ?", new String[]{ userFbId});
 
     }

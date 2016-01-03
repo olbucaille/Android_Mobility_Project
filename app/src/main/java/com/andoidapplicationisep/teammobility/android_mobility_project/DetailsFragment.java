@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,6 @@ public class DetailsFragment extends Fragment {
         Utils.init(getContext());
 
         list.add(new LineChartItem(generateDataLine(1), getContext()));
-
 
         ChartDataAdapter cda = new ChartDataAdapter(getContext(), list);
         lv.setAdapter(cda);

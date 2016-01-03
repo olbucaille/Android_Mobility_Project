@@ -58,8 +58,10 @@ private LayoutInflater mInflater;
             TextView title = (TextView)view.findViewById(R.id.title); // title
             //TextView artist = (TextView)view.findViewById(R.id.artist); // artist name
             TextView duration = (TextView)view.findViewById(R.id.duration); // duration
+            TextView begin = (TextView)view.findViewById(R.id.begin); // duration
             ImageView thumb_image=(ImageView)view.findViewById(R.id.list_image);
-
+            begin.setText("Jour : "+activityArrayList.get(position).getBegin());
+            duration.setText("Durée : "+activityArrayList.get(position).getEnd());
             // On applique la valeur recuperer dans la IHMList pour l'afficher dans la listView
            // holder.txtName.setText(ihmList.get(position).ihmName);
             //holder.txtAccess.setText(ihmList.get(position).rights);

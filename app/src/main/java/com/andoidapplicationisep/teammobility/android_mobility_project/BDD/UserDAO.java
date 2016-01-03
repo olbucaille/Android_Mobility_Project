@@ -18,10 +18,9 @@ public class UserDAO extends DAOBase{
     public static final String USER_TABLE_CREATE =
             "CREATE TABLE " + USER_TABLE_NAME + " (" +
                     USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    USER_FB_ID + "TEXT," +
+                    USER_FB_ID + " TEXT," +
                     USER_NAME + " TEXT, " +
-                    USER_TABLE_NAME + " TEXT" +
-                    USER_COACH_ID+ " TEXT);";
+                    USER_COACH_ID+ " INTEGER);";
 
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
@@ -37,6 +36,7 @@ public class UserDAO extends DAOBase{
         ContentValues value = new ContentValues();
         value.put(USER_FB_ID, u.getFbId());
         value.put(USER_NAME, u.getName());
+        value.put(USER_NAME, u.getSelectedCoachId());
         mDb.insert(USER_TABLE_NAME, null, value);
     }
 
@@ -64,16 +64,16 @@ public class UserDAO extends DAOBase{
 
     public void setSelectedCaoch(String userFbId,int coachID){
         Cursor cursor = mDb.rawQuery("UPDATE " + USER_TABLE_NAME +
-                "SET "+ USER_COACH_ID+ " = "+coachID+
-                "WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
+                " SET "+ USER_COACH_ID+ " = "+coachID+
+                " WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
 
     }
 
     public int getSelectedCaoch(String userFbId){
         int coachId=0;
         Cursor cursor = mDb.rawQuery("SELECT " + USER_COACH_ID +
-                "IN "+ USER_TABLE_NAME+
-                "WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
+                " IN "+ USER_TABLE_NAME+
+                " WHERE "+ USER_FB_ID+" = ?", new String[]{ userFbId});
 
         while(cursor.moveToNext()){
             coachId = cursor.getInt(5);

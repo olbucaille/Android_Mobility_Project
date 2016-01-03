@@ -57,17 +57,9 @@ public class Profile extends AppCompatActivity {
 
         username.setText("");
 
-        new DownloadImageTask(circle).execute("https://graph.facebook.com/"+userid+"/picture?type=large");
+        new DownloadImageTask(circle).execute("https://graph.facebook.com/" + userid + "/picture?type=large");
 
-        coachList.clear();
-        Resources res = getResources();
-        coachList.add(new Coach(R.drawable.comics_batman_icon, "Le Batman", res.getString(R.string.description_batman)));
-        coachList.add(new Coach(R.drawable.comics_batman_joker_icon, "Le Joker", res.getString(R.string.description_Joker)));
-        coachList.add(new Coach(R.drawable.comics_captain_america_icon, "Captain America", res.getString(R.string.description_captain_america)));
-        coachList.add(new Coach(R.drawable.comics_ironman_red_icon, "Iron Man", res.getString(R.string.description_iron_man)));
-        coachList.add(new Coach(R.drawable.comics_magneto_icon, "Magneto", res.getString(R.string.description_magneto)));
-        coachList.add(new Coach(R.drawable.comics_spiderwoman_icon, "Spider Woman", res.getString(R.string.description_spider_woman)));
-        coachList.add(new Coach(R.drawable.comics_thor_icon, "Thor", res.getString(R.string.description_thor)));
+        coachList = Coach.getAllCaoch(getResources());
 
         fragmentIHM();
 

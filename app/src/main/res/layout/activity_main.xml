@@ -22,6 +22,24 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="Selectionnez votre Coach dans votre profile et lancez un entrainement"
+            android:textAppearance ="@style/text_app_style"
+            android:padding="10dp"
+            android:scaleType="centerInside"/>
+
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,6 +47,7 @@
         android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal">
+
 
         <ImageButton
 

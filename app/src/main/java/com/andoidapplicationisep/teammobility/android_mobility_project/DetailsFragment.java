@@ -104,13 +104,18 @@ public class DetailsFragment extends Fragment {
     private LineData generateDataLine(int cnt) {
 
         ArrayList<Entry> e1 = new ArrayList<Entry>();
+
+        // on récupert la distance parcouru dans la base de donnée
         RunningDAO runningDAO = new RunningDAO(getActivity());
         runningDAO.open();
-        //running = new Running();
+        Running running = runningDAO.getRunning(Long.toString(id));
+
+
+
+        // on récupert les pulsations lié à l'activité pour les afficher
         HeartBeatDAO heartBeatDAO = new HeartBeatDAO(getActivity());
         heartBeatDAO.open();
-        //heartBeat = new HeartBeat();
-        Log.d("HBid",""+Long.toString(id));
+
         ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(id));
         int i = 0;
         ArrayList<String> date = new ArrayList<String>();
@@ -119,7 +124,6 @@ public class DetailsFragment extends Fragment {
         for (HeartBeat hb : hb_stockee ) {
             e1.add(new Entry((int) hb.getHeartBeat(), i));
             date.add(hb.getDate());
-            Log.d("HB",""+hb.getHeartBeat());
             i++;
         }
 

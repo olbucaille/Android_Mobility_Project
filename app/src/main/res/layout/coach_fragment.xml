@@ -22,6 +22,15 @@
         android:scaleType="centerInside"
         android:text="name"/>
     <TextView
+        android:id="@+id/level"
+        android:textStyle="bold"
+        android:textAppearance="@style/text_app_style"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:text="niveau"/>
+    <TextView
         android:gravity="center"
         android:scaleType="centerInside"
         android:id="@+id/description"
@@ -33,8 +42,11 @@
         android:text= "description"/>
 
     <Button
+        android:id="@+id/select_coach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"
         android:text="Selectionner"/>
 
 

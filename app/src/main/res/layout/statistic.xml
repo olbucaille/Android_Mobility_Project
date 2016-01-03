@@ -6,16 +6,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_weight="0.3"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Statistiques"
-            android:textAppearance ="@style/text_app_style"/>
+            android:text ="STATISTIQUES"
+            android:textAppearance ="@style/text_title_style"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:background="@drawable/text_drawable_style"/>
 
     </RelativeLayout>
 

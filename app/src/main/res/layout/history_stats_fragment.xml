@@ -3,7 +3,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="Vous trouverez dans cette section l'historique de vos entrainements, cliquez sur l'un des éléments suivants pour l'afficher"
+            android:textAppearance ="@style/text_app_style"
+            android:padding="10dp"
+            android:scaleType="centerInside" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list"

@@ -37,6 +37,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Guigui on 08/12/2015.
@@ -44,16 +45,16 @@ import java.util.Date;
     public class Workout extends AppCompatActivity {
 
     boolean run = true;
-    TextView latitude, longitude, time, distance;
+    TextView latitude, longitude, time;
     float lat = 0;
     float lon = 0;
     float lat_old = 0;
     float lon_old = 0;
-    double dist = 2;
+    double dist = 0;
     int beat = 0;
     int currentHeartBeat = 0;
     Chronometer focus;
-    Button bpm, stop;
+    Button bpm, distance, stop;
     ActivityDAO activityDAO;
     RunningDAO runningDAO;
     Running running;
@@ -99,8 +100,8 @@ import java.util.Date;
             latitude = (TextView)findViewById(R.id.latitude);
             longitude = (TextView)findViewById(R.id.longitude);
             time = (TextView)findViewById(R.id.time);
-            distance = (TextView)findViewById(R.id.distance);
 
+            distance = (Button)findViewById(R.id.distance);
             bpm = (Button)findViewById(R.id.button1);
             stop = (Button)findViewById(R.id.button2);
 
@@ -119,7 +120,6 @@ import java.util.Date;
                 }
             });
 
-
             bpm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,6 +127,15 @@ import java.util.Date;
                     beat++;
                     buttonEffect(bpm);
                     //bpm.setText("OK" + beat);
+                }
+            });
+
+            distance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    dist = dist + 0.1;
+                    buttonEffect(distance);
                 }
             });
 
@@ -173,7 +182,7 @@ import java.util.Date;
           */
             threadUpdateHR.start();
             threadUpdateTask.start();
-
+            threadCoaching.start();
         }/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -189,30 +198,25 @@ import java.util.Date;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
+                        Date hb_date = new Date();
+                        SimpleDateFormat hb_hour = new SimpleDateFormat ("hh:mm:ss");
                         currentHeartBeat = beat * 6;
                         bpm.setText("" + currentHeartBeat);
                         beat = 0;
-                        CoachMedias cm = Factory.GetACoach(StringProvider.Joker);
-                        int test2 = cm.PickRandomRun();
-                        //int test = R.raw.just_do_it;
-                        mPlayer = MediaPlayer.create(getApplicationContext(), test2);
-                        mPlayer.start();
-                        Log.d("activity ID",""+test);
+                        Log.d("activity ID", "" + test);
                         heartBeat.setActivityID(test);
                         heartBeat.setHeartBeat(currentHeartBeat);
-                        heartBeat.setDate(ft_hour.format(date));
+                        heartBeat.setDate(hb_hour.format(hb_date));
                         heartBeatDAO.ajouter(heartBeat);
                         //time.setText("Durée de l'entrainement : " + focus.getText());
                         // HeartBeat hb_stockee = heartBeatDAO.getHB(Long.toString(test));
-
                     }
                 });
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                mPlayer.release();
             }
         }
     });
@@ -234,7 +238,6 @@ import java.util.Date;
                         latitude.setText(Float.toString(lat));
                         longitude.setText(Float.toString(lon));
                         distance.setText(""+ df.format(dist) + "km");
-
                     }
                 });
                 try {
@@ -242,6 +245,62 @@ import java.util.Date;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    });
+    boolean start= false;
+    public Thread threadCoaching = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while (run) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Random randomGenerator = new Random();
+                        int randomInt = randomGenerator.nextInt(2);
+                        Log.d("aléatoire", ""+randomInt);
+                        CoachMedias cm = Factory.GetACoach(StringProvider.Batman);
+                        int voice = cm.PickRandomPerso();
+                        switch(randomInt) {
+                            case 0:
+                                if((dist>=0)&&start==false){
+                                    voice = cm.GetList_Run(0);
+                                    start=true;
+                                }
+                                if((dist>=2)&&(dist<3)){
+                                    voice = cm.GetList_Run(1);
+                                }
+                                if((dist>=4)&&(dist<5)){
+                                    voice = cm.GetList_Run(2);
+                                }
+                                if((dist>=6)&&(dist<7)){
+                                    voice = cm.GetList_Run(3);
+                                }
+                                break;
+                            case 1:
+                                if((currentHeartBeat>=90)&&(currentHeartBeat<110)){
+                                    voice = cm.GetList_Hb(0);
+                                }
+                                if((currentHeartBeat>=110)&&(currentHeartBeat<130)){
+                                    voice = cm.GetList_Hb(1);
+                                }
+                                if((currentHeartBeat>=130)){
+                                    voice = cm.GetList_Hb(2);
+                                }
+                                break;
+                            default:
+                               voice = cm.PickRandomPerso();
+                        }
+                        mPlayer = MediaPlayer.create(getApplicationContext(), voice);
+                        mPlayer.start();
+                    }
+                });
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mPlayer.release();
             }
         }
     });
@@ -258,7 +317,6 @@ import java.util.Date;
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
     public double CalculationByDistance(float lat1, float lon1,
                                         float lat2, float lon2){

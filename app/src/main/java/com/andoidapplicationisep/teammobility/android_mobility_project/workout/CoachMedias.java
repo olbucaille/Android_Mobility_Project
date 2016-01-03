@@ -26,15 +26,27 @@ public class CoachMedias {
     {
         List_Run.add(Toadd);
     }
+    public int GetList_Run(int i)
+    {
+        return List_Run.get(i);
+    }
 
     public void AddList_Hb(int Toadd)
     {
         List_Hb.add(Toadd);
     }
+    public int GetList_Hb(int i)
+    {
+        return List_Hb.get(i);
+    }
 
     public void AddList_Perso(int Toadd)
     {
         List_Perso.add(Toadd);
+    }
+    public int GetList_Perso(int i)
+    {
+        return List_Perso.get(i);
     }
 
     public int PickRandomRun()

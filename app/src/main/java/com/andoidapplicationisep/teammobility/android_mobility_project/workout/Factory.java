@@ -13,13 +13,21 @@ public class Factory {
         CoachMedias cm = new CoachMedias(coach);
         switch (coach) {
             case StringProvider.Batman:
-                for (int i = 0; i < 10; i++)
-                    cm.AddList_Perso(i);
-                break;
+                cm.AddList_Run(R.raw.batman_debut);
+                cm.AddList_Run(R.raw.batman_2km);
+                cm.AddList_Run(R.raw.batman_4km);
+                cm.AddList_Run(R.raw.batman_6km);
+                cm.AddList_Hb(R.raw.batman_niv1);
+                cm.AddList_Hb(R.raw.batman_niv2);
+                cm.AddList_Hb(R.raw.batman_niv3);
+                cm.AddList_Perso(R.raw.batman_p1);
+                cm.AddList_Perso(R.raw.batman_p2);
+                cm.AddList_Perso(R.raw.batman_p3);
 
             case StringProvider.Joker:
                 cm.AddList_Run(R.raw.just_do_it);
                 cm.AddList_Run(R.raw.highway_to_hell);
+                cm.AddList_Run(R.raw.batman_debut);
                 break;
 
             default:

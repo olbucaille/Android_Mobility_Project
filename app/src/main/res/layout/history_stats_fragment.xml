@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text ="Vous trouverez dans cette section l'historique de vos entrainements, cliquez sur l'un des éléments suivants pour l'afficher"
+            android:text ="Vous trouverez dans cette section l'historique de vos entrainements, cliquez sur l'un des éléments suivants pour l'afficher."
             android:textAppearance ="@style/text_app_style"
             android:padding="10dp"
             android:scaleType="centerInside" />

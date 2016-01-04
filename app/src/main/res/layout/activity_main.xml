@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text ="Selectionnez votre Coach dans votre profile et lancez un entrainement"
+            android:text ="Selectionnez votre Coach dans votre profil et lancez un entrainement"
             android:textAppearance ="@style/text_app_style"
             android:padding="10dp"
             android:scaleType="centerInside"/>
@@ -118,7 +118,7 @@
                 android:layout_height="match_parent"
                 android:textAppearance="@style/text_app_style"
                 android:gravity="center"
-                android:text="Profile"/>
+                android:text="Profil"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

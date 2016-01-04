@@ -164,14 +164,14 @@ import java.util.Random;
 
                     //send(String userName,String userID,String activityID,int distance,int HB ,int type)
                     //envoie de l'activité au client
-                    Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),""+test, (int)dist, 0, Client.GIVEACTIVITY);
+                    Globals.client.send("Guillaume", AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getUserId()+test, (int)dist, 0, Client.GIVEACTIVITY);
 
                     for (HeartBeat hb : hb_stockee ) {
-                        Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),""+test,0, hb.getHeartBeat(), Client.GIVEHB);
+                        Globals.client.send("Guillaume", AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getUserId()+test,0, hb.getHeartBeat(), Client.GIVEHB);
                     }
 
                     //alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
-                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID());
+                    alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() );
                     alertDialog.show();
                     mPlayer.stop();
                     mPlayer.release();

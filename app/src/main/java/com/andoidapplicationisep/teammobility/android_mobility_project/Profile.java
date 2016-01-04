@@ -71,7 +71,7 @@ public class Profile extends AppCompatActivity {
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                disconnectFromFacebook();
+                //disconnectFromFacebook();
                 threadDisconnect.start();
 
 

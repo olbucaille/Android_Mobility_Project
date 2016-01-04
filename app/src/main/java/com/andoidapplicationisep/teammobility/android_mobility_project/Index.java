@@ -85,7 +85,7 @@ public class Index extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 User user = new User();
-                user.setName("thibault");
+                user.setName("Guillaume");
 
                 AccessToken at = loginResult.getAccessToken();
 
@@ -94,7 +94,7 @@ public class Index extends AppCompatActivity {
 
                 userDAO.ajouter(user);
 
-                Globals.client.send("Thibault", at.getUserId(),"", 0, 0, Client.GIVENAME);
+                Globals.client.send("Guillaume", at.getUserId(),"", 0, 0, Client.GIVENAME);
 
 
 

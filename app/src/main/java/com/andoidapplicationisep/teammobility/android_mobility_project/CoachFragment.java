@@ -18,7 +18,7 @@ import com.facebook.AccessToken;
  */
 public class CoachFragment extends Fragment {
     private final Coach coach;
-
+    ImageView imagecheck;
     public CoachFragment(Coach coach) {
         this.coach = coach;
     }
@@ -28,13 +28,25 @@ public class CoachFragment extends Fragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.coach_fragment, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageCoach);
+        imagecheck = (ImageView) view.findViewById(R.id.check);
         TextView name = (TextView) view.findViewById(R.id.name);
         TextView niveau = (TextView) view.findViewById(R.id.level);
         TextView description = (TextView) view.findViewById(R.id.description);
         imageView.setImageResource(coach.idPicture);
+
         niveau.setText("Difficulté d'entrainement : " + coach.level + " / 3");
         name.setText(coach.name);
         description.setText(coach.description);
+
+        UserDAO userDAO = new UserDAO(getActivity());
+        userDAO.open();
+        String userid = AccessToken.getCurrentAccessToken().getUserId();
+
+
+
+        if (userDAO.getSelectedCaoch(userid).equals(Integer.toString(coach.id))){
+            imagecheck.setImageResource(R.drawable.check);
+        }
 
         Button btn = (Button)view.findViewById(R.id.select_coach);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +57,7 @@ public class CoachFragment extends Fragment {
                 String userid = AccessToken.getCurrentAccessToken().getUserId();
                 userDAO.setSelectedCaoch(userid, Integer.toString(coach.id));
 
-
+                imagecheck.setImageResource(R.drawable.check);
                 Log.d("coach ID get", "" +  userDAO.getSelectedCaoch(userid));
             }
         });
@@ -53,4 +65,6 @@ public class CoachFragment extends Fragment {
 
         return view;
     }
+
+
 }

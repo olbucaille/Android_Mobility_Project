@@ -37,6 +37,7 @@ import com.github.mikephil.charting.utils.Utils;
 /**
  * Created by apple on 04/11/2015.
  */
+
 public class DetailsFragment extends Fragment {
     private long id;
 

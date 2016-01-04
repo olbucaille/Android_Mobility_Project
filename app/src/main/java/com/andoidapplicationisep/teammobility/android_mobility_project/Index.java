@@ -137,12 +137,16 @@ public class Index extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //si l'utilisateur clique sur le bouton, on va sur la page de connexion
-                Intent intent = new Intent(Index.this, MainActivity.class);
-                //l'intent sert à passer des données entre les classes
-                startActivity(intent);
-                //on ferme l'activité
-                finish();
+                loggedIn = isFacebookLoggedIn();
+
+                if (loggedIn ==true){
+                    // App code
+                    Intent intent = new Intent(Index.this,MainActivity.class);
+                    //l'intent sert à passer des données entre les classes
+                    startActivity(intent);
+                    //on ferme l'activité
+                    finish();
+                }
             }
         });
 

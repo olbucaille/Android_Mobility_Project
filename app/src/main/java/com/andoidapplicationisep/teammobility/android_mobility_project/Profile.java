@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -68,15 +71,28 @@ public class Profile extends AppCompatActivity {
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, Index.class);
-                //l'intent sert à passer des données entre les classes
                 disconnectFromFacebook();
-                startActivity(intent);
-                //on ferme l'activité
-                finish();
+                threadDisconnect.start();
+
+
             }
         });
     }
+
+    public Thread threadDisconnect = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while (isFacebookLoggedIn()==true) {
+
+            }
+            Intent intent = new Intent(Profile.this, Index.class);
+            //l'intent sert à passer des données entre les classes
+
+            startActivity(intent);
+            //on ferme l'activité
+            finish();
+        }
+    });
 
     public void disconnectFromFacebook() {
 
@@ -106,17 +122,18 @@ public class Profile extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-
             }
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 // TODO Auto-generated method stub
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                 // TODO Auto-generated method stub
+
             }
         });
 
@@ -138,6 +155,10 @@ public class Profile extends AppCompatActivity {
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean isFacebookLoggedIn(){
+        return AccessToken.getCurrentAccessToken() != null;
     }
 
 }

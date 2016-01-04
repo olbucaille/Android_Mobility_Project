@@ -3,6 +3,7 @@ package com.andoidapplicationisep.teammobility.android_mobility_project;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -31,5 +32,10 @@ public class CoachContentView extends FragmentStatePagerAdapter {
     public int getCount() {
         // TODO Auto-generated method stub
         return nbCoach; //No of Tabs
+    }
+    @Override
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
     }
 }

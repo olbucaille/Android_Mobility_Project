@@ -162,12 +162,12 @@ import java.util.Random;
                     Running stockee = runningDAO.getRunning(Long.toString(test));
                     ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
 
-
+                    //send(String userName,String userID,String activityID,int distance,int HB ,int type)
                     //envoie de l'activité au client
-                    Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(), (int)dist, 0, Client.GIVEACTIVITY);
+                    Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),""+test, (int)dist, 0, Client.GIVEACTIVITY);
 
                     for (HeartBeat hb : hb_stockee ) {
-                        Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),0, hb.getHeartBeat(), Client.GIVEHB);
+                        Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),""+test,0, hb.getHeartBeat(), Client.GIVEHB);
                     }
 
                     //alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());

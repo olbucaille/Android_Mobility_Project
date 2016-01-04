@@ -53,7 +53,7 @@ public class Client {
         }
     }
 
-    synchronized public static void send(String userName,String userID,int distance,int HB ,int type){
+    synchronized public static void send(String userName,String userID,String activityID,int distance,int HB ,int type){
         String str="";
         String date= "";
         SimpleDateFormat ft = new SimpleDateFormat ("dd/MM/yyyy-hh:mm:ss");
@@ -67,12 +67,12 @@ public class Client {
 
              case GIVEACTIVITY:
                  date= dateFormatActivity.format(new Date());
-                 str = "GIVEACTIVITY_"+userID+"_"+1+"_"+date+"_"+distance;
+                 str = "GIVEACTIVITY_"+userID+"_"+activityID+"_"+date+"_"+distance;
                  break;
 
              case GIVEHB:
                  date = dateFormatHB.format(new Date());
-                 str = "GIVEHB_"+1+"_"+HB+"_"+date;
+                 str = "GIVEHB_"+activityID+"_"+HB+"_"+date;
                  break;
         }
 

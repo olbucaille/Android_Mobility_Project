@@ -94,7 +94,7 @@ public class Index extends AppCompatActivity {
 
                 userDAO.ajouter(user);
 
-                Globals.client.send("Thibault", at.getUserId(), 0, 0, Client.GIVENAME);
+                Globals.client.send("Thibault", at.getUserId(),"", 0, 0, Client.GIVENAME);
 
 
 

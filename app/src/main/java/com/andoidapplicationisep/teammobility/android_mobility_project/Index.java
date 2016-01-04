@@ -46,14 +46,10 @@ public class Index extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       if (savedInstanceState == null){
-            Globals.clientStatus = Globals.DISCONNECTED;
 
-
-           ClientTask clientTask = new ClientTask();
-           clientTask.execute();
-
-        }
+        Globals.clientStatus = Globals.DISCONNECTED;
+        ClientTask clientTask = new ClientTask();
+        clientTask.execute();
 
         userDAO = new UserDAO(this);
         userDAO.open();
@@ -97,6 +93,13 @@ public class Index extends AppCompatActivity {
                 user.setSelectedCoachId("1");// on met le coach 1 par defaut
 
                 userDAO.ajouter(user);
+
+                Globals.client.send("Thibault", at.getUserId(), 0, 0, Client.GIVENAME);
+
+
+
+
+
                 Intent intent = new Intent(Index.this,MainActivity.class);
                 //l'intent sert à passer des données entre les classes
                 startActivity(intent);

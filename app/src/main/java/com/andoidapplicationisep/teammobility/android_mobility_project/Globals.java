@@ -8,7 +8,7 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.Client;
 public class Globals {
 
     // partie client
-    static Client client;
+    static public Client client;
     static int clientStatus ;
 
     final static int CONNECTED = 1;

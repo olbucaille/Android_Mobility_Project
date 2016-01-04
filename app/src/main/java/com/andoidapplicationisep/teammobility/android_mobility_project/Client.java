@@ -23,9 +23,9 @@ public class Client {
     private static BufferedReader plec;
     private static Socket socket;
 
-    final static int GIVENAME = 1;
-    final static int GIVEACTIVITY = 2;
-    final static int GIVEHB = 3;
+    final public static int GIVENAME = 1;
+    final public static int GIVEACTIVITY = 2;
+    final public static int GIVEHB = 3;
     static DateFormat dateFormatActivity= new SimpleDateFormat("dd/MM/yyyy");
     static DateFormat dateFormatHB = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
 
@@ -54,9 +54,11 @@ public class Client {
     }
 
     synchronized public static void send(String userName,String userID,int distance,int HB ,int type){
-         String str="";
-         String date="";
-         String strRead="";
+        String str="";
+        String date= "";
+        SimpleDateFormat ft = new SimpleDateFormat ("dd/MM/yyyy-hh:mm:ss");
+
+        String strRead="";
 
          switch (type){
              case GIVENAME:
@@ -65,18 +67,24 @@ public class Client {
 
              case GIVEACTIVITY:
                  date= dateFormatActivity.format(new Date());
-                 str = "GIVEACTIVITY_"+userID+"_"+type+"_"+date+"_"+distance;
+                 str = "GIVEACTIVITY_"+userID+"_"+1+"_"+date+"_"+distance;
                  break;
 
              case GIVEHB:
                  date = dateFormatHB.format(new Date());
-                 str = "GIVEHB_"+type+"_"+HB+"_"+date;
+                 str = "GIVEHB_"+1+"_"+HB+"_"+date;
                  break;
         }
 
         pred.println(str);          // envoi d'un message
 
-        try {
+        /*try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        /*try {
             strRead = plec.readLine();  // lecture de l'Ècho
             Log.d("client",strRead);
         }catch (IOException ex){
@@ -89,6 +97,6 @@ public class Client {
             }catch (IOException e){
                 Log.d("client",""+ e);
             }
-        }
+        }*/
     }
 }

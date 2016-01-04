@@ -27,10 +27,12 @@ import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Heart
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.Running;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.RunningDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
+import com.andoidapplicationisep.teammobility.android_mobility_project.Client;
 import com.andoidapplicationisep.teammobility.android_mobility_project.Globals;
 import com.andoidapplicationisep.teammobility.android_mobility_project.MainActivity;
 import com.andoidapplicationisep.teammobility.android_mobility_project.R;
 import com.facebook.AccessToken;
+import com.github.mikephil.charting.data.Entry;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -159,6 +161,15 @@ import java.util.Random;
                     activityDAO.setEnd(userid, (String) focus.getText());
                     Running stockee = runningDAO.getRunning(Long.toString(test));
                     ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
+
+
+                    //envoie de l'activité au client
+                    Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(), (int)dist, 0, Client.GIVEACTIVITY);
+
+                    for (HeartBeat hb : hb_stockee ) {
+                        Globals.client.send("Thibault", AccessToken.getCurrentAccessToken().getUserId(),0, hb.getHeartBeat(), Client.GIVEHB);
+                    }
+
                     //alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID()+"\nHB"+hb_stockee.get(0).getHeartBeat());
                     alertDialog.setMessage("Durée de l'entrainement : " + focus.getText() + "\n" + "Distance parcourue : " + distance.getText() + "Stockee" + stockee.getDistance() + "id" + stockee.getActivityID());
                     alertDialog.show();

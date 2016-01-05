@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -41,6 +43,7 @@ public class Index extends AppCompatActivity {
     CallbackManager callbackManager;
     boolean loggedIn;
     UserDAO userDAO;
+    String username;
     LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,6 @@ public class Index extends AppCompatActivity {
 
         userDAO = new UserDAO(this);
         userDAO.open();
-
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -84,17 +86,46 @@ public class Index extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                User user = new User();
-                user.setName("Guillaume");
 
-                AccessToken at = loginResult.getAccessToken();
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object,GraphResponse response) {
+                                try {
+                                    String userID= AccessToken.getCurrentAccessToken().getUserId();
+                                    User user = new User();
+                                    //on récupert le pseudo utilisateur
+                                    username=object.getString("name");
+                                    user.setName(username);
+                                    user.setFbId(userID);
+                                    user.setSelectedCoachId("1");// on met le coach 1 par defaut
+                                    userDAO.ajouterIfNotExist(user);
 
-                user.setFbId(at.getUserId());
-                user.setSelectedCoachId("1");// on met le coach 1 par defaut
 
-                userDAO.ajouter(user);
+                                    userDAO.getSelectedCaoch(userID);
 
-                Globals.client.send("Guillaume", at.getUserId(),"", 0, 0, Client.GIVENAME);
+                                    Globals.client.send(userDAO.getFBName(userID), userID, "", 0, 0, Client.GIVENAME);
+
+                                } catch(JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender, birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -105,23 +136,10 @@ public class Index extends AppCompatActivity {
                 startActivity(intent);
                 //on ferme l'activité
                 finish();
-                /*
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                // Application code
-                                Log.v("LoginActivity", response.toString());
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,gender, birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
-*/
+
+
+
+
 
             }
 
@@ -158,6 +176,7 @@ public class Index extends AppCompatActivity {
 
 
     }
+
 
 
     /**************************************************************************************

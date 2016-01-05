@@ -19,7 +19,7 @@
             android:textAppearance ="@style/text_title_style"
             android:padding="10dp"
             android:scaleType="centerInside"
-            android:background="@drawable/text_app_style"/>
+            android:background="@drawable/text_drawable_style"/>
 
     </RelativeLayout>
 

@@ -21,7 +21,8 @@ public class UserDAO extends DAOBase{
                     USER_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USER_FB_ID + " TEXT," +
                     USER_NAME + " TEXT, " +
-                    USER_COACH_ID+ " TEXT);";
+                    USER_COACH_ID+ " TEXT ,"+
+                    "UNIQUE ("+USER_FB_ID+"));";
 
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
@@ -39,6 +40,17 @@ public class UserDAO extends DAOBase{
         value.put(USER_NAME, u.getName());
         value.put(USER_COACH_ID, u.getSelectedCoachId());
         mDb.insert(USER_TABLE_NAME, null, value);
+
+        Log.d("ID", u.getFbId());
+        Log.d("name",u.getName());
+        Log.d("CoachID",u.getSelectedCoachId());
+
+    }
+
+    public void ajouterIfNotExist(User u){
+        mDb.execSQL("INSERT OR IGNORE INTO " + USER_TABLE_NAME + " ( " + USER_FB_ID + "," + USER_NAME + "," + USER_COACH_ID+")" +
+                        " VALUES ( \""+ u.getFbId()+"\",\""+u.getName()+"\",\""+u.getSelectedCoachId()+"\") ");
+
     }
 
     /**
@@ -67,6 +79,20 @@ public class UserDAO extends DAOBase{
         mDb.execSQL("UPDATE " + USER_TABLE_NAME +
                 " SET "+ USER_COACH_ID+ " = "+coachID);
 
+    }
+
+    public String getFBName(String userFbId) {
+        String name = "";
+        Cursor cursor = mDb.rawQuery("SELECT " + " * " +
+                " FROM " + USER_TABLE_NAME +
+                " WHERE " + USER_FB_ID + " = ?", new String[]{userFbId});
+        while(cursor.moveToNext()) {
+
+            name = cursor.getString(2);
+            Log.d("nammzefozenfonzef", "" +name);
+        }
+
+        return name;
     }
 
     public String getSelectedCaoch(String userFbId){

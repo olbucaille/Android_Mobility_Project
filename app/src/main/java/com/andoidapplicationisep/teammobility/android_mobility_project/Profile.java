@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.andoidapplicationisep.teammobility.android_mobility_project.BDD.UserDAO;
 import com.andoidapplicationisep.teammobility.android_mobility_project.new_view.CircleImageView;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -57,8 +58,10 @@ public class Profile extends AppCompatActivity {
         CircleImageView circle = (CircleImageView) findViewById(R.id.image);
 
         TextView username = (TextView)findViewById(R.id.username);
+        UserDAO userDAO = new UserDAO(this);
+        userDAO.open();
 
-        username.setText("");
+        username.setText(userDAO.getFBName(AccessToken.getCurrentAccessToken().getUserId()));
 
         new DownloadImageTask(circle).execute("https://graph.facebook.com/" + userid + "/picture?type=large");
 
@@ -71,7 +74,7 @@ public class Profile extends AppCompatActivity {
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //disconnectFromFacebook();
+                disconnectFromFacebook();
                 threadDisconnect.start();
 
 

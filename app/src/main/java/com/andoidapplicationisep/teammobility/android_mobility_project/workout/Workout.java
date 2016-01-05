@@ -158,7 +158,7 @@ import java.util.Random;
                     running.setDistance(Double.toString(dist));
                     runningDAO.ajouter(running);
                     //time.setText("Durée de l'entrainement : " + focus.getText());
-                    activityDAO.setEnd(userid, (String) focus.getText());
+                    activityDAO.setEnd(userid,""+test,(String) focus.getText());
                     Running stockee = runningDAO.getRunning(Long.toString(test));
                     ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
 
@@ -350,7 +350,7 @@ import java.util.Random;
             running.setDistance(Double.toString(dist));
             runningDAO.ajouter(running);
             //time.setText("Durée de l'entrainement : " + focus.getText());
-            activityDAO.setEnd(userid, (String) focus.getText());
+            activityDAO.setEnd(userid, ""+test,(String) focus.getText());
             Running stockee = runningDAO.getRunning(Long.toString(test));
             ArrayList<HeartBeat> hb_stockee = heartBeatDAO.getHB(Long.toString(test));
             mPlayer.stop();

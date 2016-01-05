@@ -50,10 +50,13 @@ public class ActivityDAO extends DAOBase{
         return mDb.insert(ACTIVITY_TABLE_NAME, null, value);
 
     }
-    public void setEnd(String userFbId, String end){
+
+
+    public void setEnd(String userFbId,String activityId ,String end){
         mDb.execSQL("UPDATE " + ACTIVITY_TABLE_NAME +
                 " SET "+ ACTIVITY_END + " = \"" +end+ "\"" +
-                " WHERE "+ ACTIVITY_USER_ID+" = ?", new String[]{ userFbId});
+                " WHERE "+ ACTIVITY_USER_ID+" = ?"+
+                " AND "+ ACTIVITY_KEY +"= activityId", new String[]{ userFbId});
 
     }
     /**

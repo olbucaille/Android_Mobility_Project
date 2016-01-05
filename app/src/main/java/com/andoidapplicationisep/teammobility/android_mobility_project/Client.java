@@ -76,7 +76,10 @@ public class Client {
                  break;
         }
 
-        pred.println(str);          // envoi d'un message
+        if (pred != null){
+            pred.println(str);
+        }
+                  // envoi d'un message
 
         /*try {
             Thread.sleep(500);

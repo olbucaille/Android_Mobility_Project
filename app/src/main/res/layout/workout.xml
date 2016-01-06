@@ -42,7 +42,7 @@
         android:textAppearance ="@style/text_app_style"
         android:textColor="#000000"
         android:text="BPM"
-        android:background="@drawable/chest"
+        android:background="@drawable/superhero_bpm2"
         android:layout_gravity="center"/>
 
     <Button

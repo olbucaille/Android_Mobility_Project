@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/super_hero">>
+    android:background="@drawable/super_hero_pose">>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -53,9 +53,9 @@
         <ImageButton
 
             android:id="@+id/workout"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/running"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_running"
             android:scaleType="centerInside"
             android:background="@null"/>
 
@@ -86,7 +86,7 @@
 
             <ImageButton
                 android:id="@+id/statistics"
-                android:src="@drawable/stats"
+                android:src="@drawable/stats_hero"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:scaleType="centerInside"
@@ -109,7 +109,7 @@
 
             <ImageButton
                 android:id="@+id/profile"
-                android:src="@drawable/profile"
+                android:src="@drawable/profil_hero"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:scaleType="centerInside"

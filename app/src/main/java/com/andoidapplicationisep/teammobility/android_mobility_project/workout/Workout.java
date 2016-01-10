@@ -71,6 +71,7 @@ import java.util.Random;
     String userid = AccessToken.getCurrentAccessToken().getUserId();
     int coach = 1;
     String coachStr = "1";
+    int gps_start=0;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -223,8 +224,6 @@ import java.util.Random;
                         heartBeat.setHeartBeat(currentHeartBeat);
                         heartBeat.setDate(hb_hour.format(hb_date));
                         heartBeatDAO.ajouter(heartBeat);
-                        //time.setText("Durée de l'entrainement : " + focus.getText());
-                        // HeartBeat hb_stockee = heartBeatDAO.getHB(Long.toString(test));
                     }
                 });
                 try {
@@ -240,21 +239,25 @@ import java.util.Random;
         @Override
         public void run() {
             while (run) {
-                lat_old = lat;
-                lon_old = lon;
-                lat = (float) (Globals.getlatitude());
-                lon = Globals.getlongitude();
-                dist = dist + CalculationByDistance(lat_old, lon_old, lat, lon);
-                final DecimalFormat df = new DecimalFormat("0.0");
+                    lat_old = lat;
+                    lon_old = lon;
+                    lat = (float) (Globals.getlatitude());
+                    lon = Globals.getlongitude();
+                if ((lat == 0) && (lon == 0) && (gps_start == 0)) {
+                    gps_start = 1;
+                    dist = dist + CalculationByDistance(lat_old, lon_old, lat, lon);
+                }
+                    final DecimalFormat df = new DecimalFormat("0.0");
 
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        latitude.setText(Float.toString(lat));
-                        longitude.setText(Float.toString(lon));
-                        distance.setText(""+ df.format(dist) + "km");
-                    }
-                });
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            latitude.setText(Float.toString(lat));
+                            longitude.setText(Float.toString(lon));
+                            distance.setText("" + df.format(dist) + "km");
+                        }
+                    });
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -309,7 +312,7 @@ import java.util.Random;
                                 break;
                             case 1:
                                 if((currentHeartBeat>=0)&&(currentHeartBeat<90)&&start==false){
-                                    voice = cm.GetList_Hb(0);
+                                    voice = cm.GetList_Run(0);
                                     start=true;
                                 }
                                 if((currentHeartBeat>=90)&&(currentHeartBeat<110)){
@@ -383,7 +386,7 @@ import java.util.Random;
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        v.getBackground().setColorFilter(0xffd40659, PorterDuff.Mode.SRC_ATOP);
+                        v.getBackground().setColorFilter(0x99000000, PorterDuff.Mode.SRC_ATOP);
                         v.invalidate();
                         break;
                     }
